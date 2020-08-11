@@ -14,12 +14,12 @@
 
 ##Stacks
 
-*Java
-*Servelet
-*JavaScript
-*Tomcat
-*Maven
-*Mysql
+* Java
+* Servelet
+* JavaScript
+* Tomcat
+* Maven
+* Mysql
 
 >
 
