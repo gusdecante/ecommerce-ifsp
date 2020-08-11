@@ -14,12 +14,12 @@ Interdisciplinary project for graduate school in web development at Instituto Fe
 
 ##Stacks##
 
--Java
--Servelet
--JavaScript
--Tomcat
--Maven
--Mysql
+-Java;
+-Servelet;
+-JavaScript;
+-Tomcat;
+-Maven;
+-Mysql;
 
 >
 
