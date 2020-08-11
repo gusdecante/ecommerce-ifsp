@@ -4,14 +4,14 @@ Interdisciplinary project for graduate school in web development at Instituto Fe
 
 >
 
-Participants
--[Alex Rodrigues](https://avatars1.githubusercontent.com/u/47673758?v=4)
--[João Marcos](https://avatars2.githubusercontent.com/u/61948011?v=4)
--[Gustavo de Campos](https://avatars0.githubusercontent.com/u/59372564?v=4)
+##Participants##
+1. [Alex Rodrigues](https://avatars1.githubusercontent.com/u/47673758?v=4)
+2. [João Marcos](https://avatars2.githubusercontent.com/u/61948011?v=4)
+3. [Gustavo de Campos](https://avatars0.githubusercontent.com/u/59372564?v=4)
 
 >
 
-Stacks
+##Stacks##
 -Java
 -Servelet
 -JavaScript
