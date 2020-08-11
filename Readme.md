@@ -1,26 +1,26 @@
-#Projeto Interdisciplinar - Ecommerce#
+#Projeto Interdisciplinar - Ecommerce
 
-Interdisciplinary project for graduate school in web development at Instituto Federal de São Paulo - Câmpus Itapetininga. We'll built an ecommerce with some tools used in the first semester.
-
->
-
-##Participants##
-
-1. [Alex Rodrigues](https://github.com/AlexRodriguesbeta)
-2. [João Marcos](https://github.com/joaom007)
-3. [Gustavo de Campos](https://github.com/gusdecante)
+**Interdisciplinary project** for graduate school in web development at Instituto Federal de São Paulo - Câmpus Itapetininga. We'll built an *ecommerce* with some tools used in the first semester.
 
 >
 
-##Stacks##
+##Participants
 
--Java;
--Servelet;
--JavaScript;
--Tomcat;
--Maven;
--Mysql;
+1. [AlexRodriguesbeta](https://github.com/AlexRodriguesbeta)
+2. [joaom007](https://github.com/joaom007)
+3. [gusdecante](https://github.com/gusdecante)
 
 >
 
-#Instructions#
+##Stacks
+
+*Java;
+*Servelet;
+*JavaScript;
+*Tomcat;
+*Maven;
+*Mysql;
+
+>
+
+##Instructions
