@@ -31,6 +31,4 @@ public class PessoaFisica extends Customer {
     public void setRG(String RG) {
         this.RG = RG;
     }
-    
-    
 }
