@@ -24,6 +24,10 @@ public class UserDao {
         st.setString(3, u.getPassword());
         st.setInt(4, u.getTypeOfUser());
         st.setString(5, u.getToken());
+
+        st.execute();
+        st.close();
+        con.close();
     }
     
 }
