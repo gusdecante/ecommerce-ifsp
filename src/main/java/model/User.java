@@ -5,7 +5,7 @@ public class User {
     private String email;
     private String password;
     private int typeOfUser;//add token
-    private int token;
+    private String token;
 
     
     public int getIdUser() {
@@ -40,11 +40,11 @@ public class User {
         this.typeOfUser = typeOfUser;
     }
     
-    public int getToken() {
+    public String getToken() {
         return this.token;
     }
 
-    public void setToken(int token) {
+    public void setToken(String token) {
         this.token = token;
     }
     
