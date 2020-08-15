@@ -4,7 +4,7 @@ public class User {
     private int idUser;
     private String email;
     private String password;
-    private int typeOfUser;
+    private int typeOfUser;//add token
 
     public int getIdUser() {
         return this.idUser;
