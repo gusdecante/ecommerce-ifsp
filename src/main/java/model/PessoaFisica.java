@@ -1,16 +1,17 @@
 package model;
 
+import java.sql.Date;
 
-public class PessoaFisica extends Customer{
+public class PessoaFisica extends Customer {
     private String CPF;
     private String RG;
-    private String dateOfBirth;
+    private Date dateOfBirth;
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return this.dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
