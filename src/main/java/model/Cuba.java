@@ -1,7 +1,7 @@
 package model;
 
 public class Cuba extends SizeCuba{
-    private int idCuba;
+    private int idCuba, sizeCubaIdSizeCuba;
     private String nameCuba;
 
     public int getIdCuba() {
@@ -19,4 +19,13 @@ public class Cuba extends SizeCuba{
     public void setNameCuba(String nameCuba) {
         this.nameCuba = nameCuba;
     }
+
+    public int getSizeCubaIdSizeCuba() {
+        return this.sizeCubaIdSizeCuba;
+    }
+
+    public void setSizeCubaIdSizeCuba(int sizeCubaIdSizeCuba) {
+        this.sizeCubaIdSizeCuba = sizeCubaIdSizeCuba;
+    }
+
  }
