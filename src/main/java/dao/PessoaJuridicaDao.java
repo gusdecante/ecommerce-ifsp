@@ -2,8 +2,14 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.mysql.cj.xdevapi.Result;
+
+import model.PessoaFisica;
 import model.PessoaJuridica;
 import util.MysqlConection;
 
@@ -45,5 +51,26 @@ public class PessoaJuridicaDao {
         st.execute();
         st.close();
         con.close();
+    }
+
+    //Listing PessoaJuridica - Customers who was business
+    public List<PessoaJuridica> search() throws SQLException, Exception {
+        List<PessoaJuridica> list = new ArrayList();
+        String query = "SELECT * FROM pessoa_Juridica";
+
+        PreparedStatement st = con.prepareStatement(query);
+
+        ResultSet rs = st.executeQuery();
+
+        while(rs.next()) {
+            PessoaJuridica pj = new PessoaJuridica();
+
+            pj.setIdPessoaJuridica(rs.getInt("id_Pessoa_Juridica"));
+            pj.setCnpj(rs.getString("CNPJ"));
+            pj.setRazaoSocial(rs.getString("razao_Social"));
+            pj.setIdCustomer(rs.getInt("customer_id_Customer"));
+            list.add(pj);
+        }
+        return list;
     }
 }
