@@ -3,6 +3,7 @@ package model;
 import java.sql.Date;
 
 public class PessoaFisica extends Customer {
+    private int idPessoaFisica;
     private String CPF;
     private String RG;
     private Date dateOfBirth;
@@ -31,4 +32,13 @@ public class PessoaFisica extends Customer {
     public void setRG(String RG) {
         this.RG = RG;
     }
+
+    public int getIdPessoaFisica() {
+        return this.idPessoaFisica;
+    }
+
+    public void setIdPessoaFisica(int idPessoaFisica) {
+        this.idPessoaFisica = idPessoaFisica;
+    }
+
 }
