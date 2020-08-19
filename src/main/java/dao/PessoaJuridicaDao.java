@@ -46,7 +46,7 @@ public class PessoaJuridicaDao {
         st.setInt(1, pj.getIdPessoaJuridica());
         st.setString(2, pj.getCnpj());
         st.setString(3, pj.getRazaoSocial());
-        st.setInt(4, pj.getIdCustomer());
+        st.setInt(4, pj.getCustomer_id_Customer());
         st.execute();
 
         //Fourth - Insert Address

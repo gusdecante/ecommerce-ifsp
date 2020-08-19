@@ -49,7 +49,7 @@ public class PessoaFisicaDao {
         st.setString(3, pf.getCPF());;
         st.setString(4, pf.getRG());
         st.setDate(5, pf.getDateOfBirth());
-        st.setInt(6, pf.getIdCustomer());
+        st.setInt(6, pf.getCustomer_id_Customer());
         st.execute();
         
         //Fourth - Insert Address
