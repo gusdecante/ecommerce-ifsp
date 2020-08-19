@@ -1,7 +1,7 @@
 package model;
 
 public class PessoaJuridica extends Customer{
-    private int idPessoaJuridica;
+    private int idPessoaJuridica, customer_id_Customer;
     private String cnpj;
     private String razaoSocial;
 
@@ -28,4 +28,14 @@ public class PessoaJuridica extends Customer{
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
     }
+
+    public int getCustomer_id_Customer() {
+        return this.customer_id_Customer;
+    }
+
+    public void setCustomer_id_Customer(int customer_id_Customer) {
+        this.customer_id_Customer = customer_id_Customer;
+    }
+
+
 }

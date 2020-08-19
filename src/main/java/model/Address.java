@@ -1,6 +1,6 @@
 package model;
 
-public class Adress extends Customer{
+public class Address extends Customer{
     
     private int idAdress,customerIdCustomer;
     private String street,number,district,city,state,zipCode;

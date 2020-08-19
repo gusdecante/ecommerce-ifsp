@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Address;
 import model.PessoaFisica;
+import model.Phone;
 import util.MysqlConection;
 
 public class PessoaFisicaDao {
@@ -47,8 +49,32 @@ public class PessoaFisicaDao {
         st.setString(3, pf.getCPF());;
         st.setString(4, pf.getRG());
         st.setDate(5, pf.getDateOfBirth());
-        st.setInt(6, pf.getIdCustomer());
+        st.setInt(6, pf.getCustomer_id_Customer());
         st.execute();
+        
+        //Fourth - Insert Address
+        Address adr = new Address();
+        query = "INSERT INTO address(id_Address, street, number, district, city, state, zip_Code, customer_id_Customer) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        st = con.prepareStatement(query);
+        st.setInt(1, adr.getIdAdress());
+        st.setString(2, adr.getStreet());
+        st.setString(3, adr.getNumber());
+        st.setString(4, adr.getDistrict());
+        st.setString(5, adr.getCity());
+        st.setString(6, adr.getState());
+        st.setString(7, adr.getZipCode());
+        st.setInt(8, adr.getCustomerIdCustomer());
+        st.execute();
+
+        //Fifth - Insert the Phone
+        Phone ph = new Phone();
+        query = "INSERT INTO phone(id_Phone, phone, customer_id_Customer) VALUES(?, ?, ?)";
+        st = con.prepareStatement(query);
+        st.setInt(1, ph.getIdPhone());
+        st.setString(2, ph.getPhone());
+        st.setInt(3, ph.getCustomerIdCustomer());
+        st.execute();
+
         st.close();
         con.close();
          
@@ -70,7 +96,7 @@ public class PessoaFisicaDao {
             pf.setCPF(rs.getString("CPF"));
             pf.setRG(rs.getString("RG"));
             pf.setDateOfBirth(rs.getDate("date_Birth"));
-            pf.setIdCustomer(rs.getInt("customer_id_Customer"));
+            pf.setCustomer_id_Customer(rs.getInt("customer_id_Customer"));
 
             list.add(pf);
         }
@@ -92,7 +118,7 @@ public class PessoaFisicaDao {
             pf.setCPF(rs.getString("CPF"));
             pf.setRG(rs.getString("RG"));
             pf.setDateOfBirth(rs.getDate("date_Birth"));
-            pf.setIdCustomer(rs.getInt("customer_id_Customer"));
+            pf.setCustomer_id_Customer(rs.getInt("customer_id_Customer"));
             
             list.add(pf);
         }
