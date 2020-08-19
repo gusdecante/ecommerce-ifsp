@@ -90,7 +90,7 @@ public class PessoaJuridicaDao {
             pj.setIdPessoaJuridica(rs.getInt("id_Pessoa_Juridica"));
             pj.setCnpj(rs.getString("CNPJ"));
             pj.setRazaoSocial(rs.getString("razao_Social"));
-            pj.setIdCustomer(rs.getInt("customer_id_Customer"));
+            pj.setCustomer_id_Customer(rs.getInt("customer_id_Customer"));
             list.add(pj);
         }
         return list;
