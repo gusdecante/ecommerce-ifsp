@@ -59,12 +59,13 @@ public class UserDao {
     public static boolean updateUser(User user) throws SQLException {
         boolean isSuccess = false;
         try {
-            String query = "UPDATE User SET id_User = ?, email = ?, password = ?, token = ? WHERE email = ?";
+            String query = "UPDATE User SET id_User = ?, email = ?, password = ?, user_Type = ?, token = ? WHERE email = ?";
             PreparedStatement st = con.prepareStatement(query);
             st.setInt(1, user.getIdUser());
             st.setString(2, user.getEmail());
             st.setString(3, user.getPassword());
-            st.setString(4, user.getToken());//The type of user stay the same
+            st.setInt(4, user.getTypeOfUser());
+            st.setString(5, user.getToken());//The type of user stay the same
 
             isSuccess = true;
         } catch (Exception e) {
