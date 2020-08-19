@@ -29,7 +29,7 @@ public class CategoryDao {
             st.setInt(1, 0);
             st.setString(2, i.getCategory());
 
-            st.execute(); //Execute the insert
+            st.executeUpdate(); //Execute the insert
             st.close(); //Close the Statment
             con.close(); //Close the connection
             isSuccess = true;

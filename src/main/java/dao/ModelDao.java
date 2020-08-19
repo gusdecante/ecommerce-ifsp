@@ -33,7 +33,7 @@ public class /*Class*/Dao {
             st.setString(4, i.get/*field*/());
             st.setString(5, i.get/*field*/());
 
-            st.execute(); //Execute the insert
+            st.executeUpdate(); //Execute the insert
             st.close(); //Close the Statment
             con.close(); //Close the connection
             isSuccess = true;
