@@ -71,6 +71,8 @@ public class PessoaFisicaDao {
             pf.setRG(rs.getString("RG"));
             pf.setDateOfBirth(rs.getDate("date_Birth"));
             pf.setIdCustomer(rs.getInt("customer_id_Customer"));
+
+            list.add(pf);
         }
         return list;
     }
@@ -91,6 +93,8 @@ public class PessoaFisicaDao {
             pf.setRG(rs.getString("RG"));
             pf.setDateOfBirth(rs.getDate("date_Birth"));
             pf.setIdCustomer(rs.getInt("customer_id_Customer"));
+            
+            list.add(pf);
         }
         return list;
     }
