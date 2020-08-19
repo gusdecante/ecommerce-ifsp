@@ -2,7 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.PessoaFisica;
 import util.MysqlConection;
@@ -52,5 +55,23 @@ public class PessoaFisicaDao {
     }
 
     //Listing PessoaFisica customer
-    
+    //Whithout the Address and Phone yet
+    public List<PessoaFisica> search() throws SQLException, Exception {
+        List<PessoaFisica> list = new ArrayList();
+        String query = "SELECT * pessoa_Fisica";
+        PreparedStatement st = con.prepareStatement(query);
+
+        ResultSet rs = st.executeQuery();
+        while(rs.next()) {
+            PessoaFisica pf = new PessoaFisica();
+
+            pf.setIdPessoaFisica(rs.getInt("id_Pessoa_Fisica"));
+            pf.setNameCustomer(rs.getString("name_Customer"));
+            pf.setCPF(rs.getString("CPF"));
+            pf.setRG(rs.getString("RG"));
+            pf.setDateOfBirth(rs.getDate("date_Birth"));
+            pf.setIdCustomer(rs.getInt("customer_id_Customer"));
+        }
+        return list;
+    }
 }
