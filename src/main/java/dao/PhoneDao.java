@@ -13,7 +13,7 @@ public class PhoneDao {
     public PhoneDao() {
         con = new MysqlConection().getConnection();
     }
-
+    //Register Customer
     public void registerPhone(Phone ph) throws SQLException {
         String query;
         query = "INSERT INTO phone(id_Phone, phone, customer_id_Customer) VALUES(?, ?, ?);";
