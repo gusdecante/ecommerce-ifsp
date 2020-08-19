@@ -58,7 +58,7 @@ public class PessoaFisicaDao {
     //Whithout the Address and Phone yet
     public List<PessoaFisica> search() throws SQLException, Exception {
         List<PessoaFisica> list = new ArrayList();
-        String query = "SELECT * pessoa_Fisica";
+        String query = "SELECT * FROM pessoa_Fisica";
         PreparedStatement st = con.prepareStatement(query);
 
         ResultSet rs = st.executeQuery();
@@ -74,4 +74,7 @@ public class PessoaFisicaDao {
         }
         return list;
     }
+
+    //Search for a costumer
+
 }
