@@ -75,6 +75,23 @@ public class PessoaFisicaDao {
         return list;
     }
 
-    //Search for a costumer
+    //Search for a specific costumer
+    public List<PessoaFisica> search(String name) throws SQLException, Exception {
+        List<PessoaFisica> list = new ArrayList();
+        String query = "SELECT * FROM pessoa_Fisica WHERE name_Customer '" + name + "'";
+        PreparedStatement st = con.prepareStatement(query);
 
+        ResultSet rs = st.executeQuery();
+        while(rs.next()) {
+            PessoaFisica pf = new PessoaFisica();
+
+            pf.setIdPessoaFisica(rs.getInt("id_Pessoa_Fisica"));
+            pf.setNameCustomer(rs.getString("name_Customer"));
+            pf.setCPF(rs.getString("CPF"));
+            pf.setRG(rs.getString("RG"));
+            pf.setDateOfBirth(rs.getDate("date_Birth"));
+            pf.setIdCustomer(rs.getInt("customer_id_Customer"));
+        }
+        return list;
+    }
 }
