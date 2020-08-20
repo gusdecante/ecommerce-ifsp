@@ -13,11 +13,11 @@ public class Color{
         this.idColor = idColor;
     }
 
-    public String getNomeColor() {
+    public String getNameColor() {
         return this.nameColor;
     }
 
-    public void setNomeColor(String nameColor) {
+    public void setNameColor(String nameColor) {
         this.nameColor = nameColor;
     }
 }
