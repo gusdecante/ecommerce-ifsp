@@ -50,7 +50,7 @@ public class PhoneDao {
     } 
 
     //Delete phone
-    public boolean delete/*class*/(int idPhone) {
+    public boolean deletePhone(int idPhone) {
         boolean isSuccess = false;
         try {
             String query = "DELETE FROM phone WHERE id_Phone = ?;";
