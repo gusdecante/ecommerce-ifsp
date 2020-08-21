@@ -48,4 +48,27 @@ public class PhoneDao {
 
         return listOPhones;
     } 
+
+    //Delete phone
+    public boolean delete/*class*/(int idPhone) {
+        boolean isSuccess = false;
+        try {
+            String query = "DELETE FROM phone WHERE id_Phone = ?;";
+
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+            st.setInt(1, idPhone);
+
+            st.executeUpdate(); //Execute the Delete
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+
+            isSuccess = true;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            isSuccess = false;
+        }
+        
+        return isSuccess;
+    }
 }
