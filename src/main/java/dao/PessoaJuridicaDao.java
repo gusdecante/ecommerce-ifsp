@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Address;
+//import model.Address;
 import model.PessoaJuridica;
-import model.Phone;
+//import model.Phone;
 import util.MysqlConection;
 
 public class PessoaJuridicaDao {
@@ -34,7 +34,7 @@ public class PessoaJuridicaDao {
         st.execute();
 
         //Second - Insert Customer 
-        query = "INSERT INT customer(id_Customer, user_id_User) VALUES(?, ?)";
+        query = "INSERT INTO customer(id_Customer, user_id_User) VALUES(?, ?)";
         st = con.prepareStatement(query);
         st.setInt(1, pj.getIdCustomer());
         st.setInt(2, pj.getIdUser());
