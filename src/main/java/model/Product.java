@@ -1,10 +1,9 @@
 package model;
 
-public class Product extends Cuba{
-    private int idProduct, stock, cubaIdCuba, FinishingProcessIdFinishing, colorIdColor, categoryIdCategory;
-    private String nameProduct, description, imageLink, category, finishingProcess, nameColor;
+public class Product extends Category{
+    private int idProduct, categoryIdCategory, stock;
+    private String color, finishingProcess, cubaType, description, imageLink;
     private double unitaryValue;
-
 
     public int getIdProduct() {
         return this.idProduct;
@@ -12,38 +11,6 @@ public class Product extends Cuba{
 
     public void setIdProduct(int idProduct) {
         this.idProduct = idProduct;
-    }
-
-    public int getStock() {
-        return this.stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public int getCubaIdCuba() {
-        return this.cubaIdCuba;
-    }
-
-    public void setCubaIdCuba(int cubaIdCuba) {
-        this.cubaIdCuba = cubaIdCuba;
-    }
-
-    public int getFinishingProcessIdFinishing() {
-        return this.FinishingProcessIdFinishing;
-    }
-
-    public void setFinishingProcessIdFinishing(int FinishingProcessIdFinishing) {
-        this.FinishingProcessIdFinishing = FinishingProcessIdFinishing;
-    }
-
-    public int getColorIdColor() {
-        return this.colorIdColor;
-    }
-
-    public void setColorIdColor(int colorIdColor) {
-        this.colorIdColor = colorIdColor;
     }
 
     public int getCategoryIdCategory() {
@@ -54,12 +21,36 @@ public class Product extends Cuba{
         this.categoryIdCategory = categoryIdCategory;
     }
 
-    public String getNameProduct() {
-        return this.nameProduct;
+    public int getStock() {
+        return this.stock;
     }
 
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getColor() {
+        return this.color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getFinishingProcess() {
+        return this.finishingProcess;
+    }
+
+    public void setFinishingProcess(String finishingProcess) {
+        this.finishingProcess = finishingProcess;
+    }
+
+    public String getCubaType() {
+        return this.cubaType;
+    }
+
+    public void setCubaType(String cubaType) {
+        this.cubaType = cubaType;
     }
 
     public String getDescription() {
@@ -78,30 +69,6 @@ public class Product extends Cuba{
         this.imageLink = imageLink;
     }
 
-    public String getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getFinishingProcess() {
-        return this.finishingProcess;
-    }
-
-    public void setFinishingProcess(String finishingProcess) {
-        this.finishingProcess = finishingProcess;
-    }
-
-    public String getNameColor() {
-        return this.nameColor;
-    }
-
-    public void setNameColor(String nameColor) {
-        this.nameColor = nameColor;
-    }
-
     public double getUnitaryValue() {
         return this.unitaryValue;
     }
@@ -109,6 +76,6 @@ public class Product extends Cuba{
     public void setUnitaryValue(double unitaryValue) {
         this.unitaryValue = unitaryValue;
     }
-    
+
    
 }

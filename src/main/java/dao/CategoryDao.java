@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Category;
-import util.MysqlConection;
+import util.MysqlConnection;
 
 public class CategoryDao {
 
@@ -16,7 +16,7 @@ public class CategoryDao {
 
     //Mysql connection created
     public CategoryDao() {
-        con = new MysqlConection().getConnection();
+        con = new MysqlConnection().getConnection();
     }
 
     //Insert register on the mysql table

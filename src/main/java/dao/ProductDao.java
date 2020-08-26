@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Product;
 
-import util.MysqlConection;
+import util.MysqlConnection;
 
 public class ProductDao {
 
@@ -16,27 +16,26 @@ public class ProductDao {
 
     //Mysql connection created
     public ProductDao() {
-        con = new MysqlConection().getConnection();
+        con = new MysqlConnection().getConnection();
     }
 
     //Insert register on the mysql table
     public boolean registerProduct(Product i) {
         boolean isSuccess = false;
         try {
-            String query = "INSERT INTO product (id_Product, name_Product, descricao, imagem_Link, stock, unitary_Value, cuba_id_Cuba, finishing_Process_id_Finishing, color_id_Color, category_id_Category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+            String query = "INSERT INTO product (id_Product, category_id_Category, color, finishing_Process, cuba_Type, description, stock, unitary_Value, image_Link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
 
             st.setInt(1, 0);
-            st.setString(2, i.getNameProduct());
-            st.setString(3, i.getDescription());
-            st.setString(4, i.getImageLink());
-            st.setInt(5, i.getStock());
-            st.setDouble(6, i.getUnitaryValue());
-            st.setInt(7, i.getCubaIdCuba());
-            st.setInt(8, i.getFinishingProcessIdFinishing());
-            st.setInt(9, i.getColorIdColor());
-            st.setInt(10, i.getCategoryIdCategory());
+            st.setInt(2, i.getCategoryIdCategory());
+            st.setString(3, i.getColor());
+            st.setString(4, i.getFinishingProcess());
+            st.setString(5, i.getCubaType());
+            st.setString(6, i.getDescription());
+            st.setInt(7, i.getStock());
+            st.setDouble(8, i.getUnitaryValue());
+            st.setString(9, i.getImageLink());
             
             st.executeUpdate(); //Execute the insert
             st.close(); //Close the Statment
@@ -64,15 +63,14 @@ public class ProductDao {
             Product p = new Product();
 
             p.setIdProduct(rs.getInt("id_Product"));
-            p.setNameProduct(rs.getString("name_Product"));
+            p.setCategoryIdCategory(rs.getInt("category_id_Category"));
+            p.setColor(rs.getString("color"));
+            p.setFinishingProcess(rs.getString("finishing_Process"));
+            p.setCubaType(rs.getString("cuba_Type"));
             p.setDescription(rs.getString("description"));
-            p.setImageLink(rs.getString("image_Link"));
             p.setStock(rs.getInt("stock"));
             p.setUnitaryValue(rs.getDouble("unitary_Value"));
-            p.setCubaIdCuba(rs.getInt("cuba_id_Cuba"));
-            p.setFinishingProcessIdFinishing(rs.getInt("finishing_Process_id_Finishing"));
-            p.setColorIdColor(rs.getInt("color_id_Color"));
-            p.setCategoryIdCategory(rs.getInt("category_id_Category"));
+            p.setImageLink(rs.getString("image_Link"));
 
             lista.add(p);
         }
@@ -87,7 +85,7 @@ public class ProductDao {
     public boolean updateProduct(Product u) {
         boolean isSuccess = false;
         try {
-            String query = "UPDATE product SET id_Product = ?, name_Product = ?, description = ?, image_Link = ?, stock = ?, unitary_Value = ?, cuba_id_Cuba = ?, finishing_Process_id_Finishing = ?, color_id_Color = ?, category_id_Category = ?;";
+            String query = "UPDATE product SET id_Product = ?, category_id_Category = ?, color = ?, finishing_Process = ?, cuba_Type = ?, description = ?, stock = ?, unitary_Value = ?, image_Link = ? ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             //Select id informated 
@@ -96,15 +94,14 @@ public class ProductDao {
             for (Product lc : l) {
                 st.setInt(1, lc.getIdProduct());
             }
-            st.setString(2, u.getNameProduct());
-            st.setString(3, u.getDescription());
-            st.setString(4, u.getImageLink());
-            st.setInt(5, u.getStock());
-            st.setDouble(6, u.getUnitaryValue());
-            st.setInt(7, u.getCubaIdCuba());
-            st.setInt(8, u.getFinishingProcessIdFinishing());
-            st.setInt(9, u.getColorIdColor());
-            st.setInt(10, u.getCategoryIdCategory());
+            st.setInt(2, u.getCategoryIdCategory());
+            st.setString(3, u.getColor());
+            st.setString(4, u.getFinishingProcess());
+            st.setString(5, u.getCubaType());
+            st.setString(6, u.getDescription());
+            st.setInt(7, u.getStock());
+            st.setDouble(8, u.getUnitaryValue());
+            st.setString(9, u.getImageLink());
 
             st.executeUpdate(); //Execute the update
             st.close(); //Close the Statment
@@ -161,15 +158,14 @@ public class ProductDao {
             Product p = new Product();
 
             p.setIdProduct(rs.getInt("id_Product"));
-            p.setNameProduct(rs.getString("name_Product"));
+            p.setCategoryIdCategory(rs.getInt("category_id_Category"));
+            p.setColor(rs.getString("color"));
+            p.setFinishingProcess(rs.getString("finishing_Process"));
+            p.setCubaType(rs.getString("cuba_Type"));
             p.setDescription(rs.getString("description"));
-            p.setImageLink(rs.getString("image_Link"));
             p.setStock(rs.getInt("stock"));
             p.setUnitaryValue(rs.getDouble("unitary_Value"));
-            p.setCubaIdCuba(rs.getInt("cuba_id_Cuba"));
-            p.setFinishingProcessIdFinishing(rs.getInt("finishing_Process_id_Finishing"));
-            p.setColorIdColor(rs.getInt("color_id_Color"));
-            p.setCategoryIdCategory(rs.getInt("category_id_Category"));
+            p.setImageLink(rs.getString("image_Link"));
 
             lista.add(p);
         }
