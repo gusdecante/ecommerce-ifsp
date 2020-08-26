@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Product;
 
-import util.MysqlConection;
+import util.MysqlConnection;
 
 public class ProductDao {
 
@@ -16,7 +16,7 @@ public class ProductDao {
 
     //Mysql connection created
     public ProductDao() {
-        con = new MysqlConection().getConnection();
+        con = new MysqlConnection().getConnection();
     }
 
     //Insert register on the mysql table

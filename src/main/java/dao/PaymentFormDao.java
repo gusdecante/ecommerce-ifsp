@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.PaymentForm;
 
-import util.MysqlConection;
+import util.MysqlConnection;
 
 public class PaymentFormDao {
 
@@ -16,7 +16,7 @@ public class PaymentFormDao {
 
     //Mysql connection created
     public PaymentFormDao() {
-        con = new MysqlConection().getConnection();
+        con = new MysqlConnection().getConnection();
     }
 
     //Insert register on the mysql table

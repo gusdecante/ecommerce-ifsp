@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.User;
-import util.MysqlConection;
+import util.MysqlConnection;
 
 
 public class UserDao {
     private static Connection con;
 
     public UserDao() {
-        con = new MysqlConection().getConnection(); //Create the connection
+        con = new MysqlConnection().getConnection(); //Create the connection
     }
 
     public void registerUser(User u) throws SQLException {
