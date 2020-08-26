@@ -2,16 +2,16 @@ package model;
 
 public class Address extends Customer{
     
-    private int idAdress,customerIdCustomer;
+    private int idAddress,customerIdCustomer;
     private String street,number,district,city,state,zipCode;
 
 
-    public int getIdAdress() {
-        return this.idAdress;
+    public int getIdAddress() {
+        return this.idAddress;
     }
 
-    public void setIdAdress(int idAdress) {
-        this.idAdress = idAdress;
+    public void setIdAddress(int idAddress) {
+        this.idAddress = idAddress;
     }
 
     public int getCustomerIdCustomer() {
