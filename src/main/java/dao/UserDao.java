@@ -18,13 +18,13 @@ public class UserDao {
 
     public void registerUser(User u) throws SQLException {
         String query;
-        query = "INSERT INTO user (id_User, email, password, user_Tyoe, token) VALUES (?, ?, ?, ?, ?);";
+        query = "INSERT INTO user (id_User, email, password, user_Type, token) VALUES (?, ?, ?, ?, ?);";
 
         PreparedStatement st = con.prepareStatement(query); //User the connection to set the values
         st.setInt(1, u.getIdUser());
         st.setString(2, u.getEmail());
         st.setString(3, u.getPassword());
-        st.setInt(4, u.getTypeOfUser());
+        st.setInt(4, u.getUserType());
         st.setString(5, u.getToken());
 
         st.execute(); //Execute the query
@@ -46,7 +46,7 @@ public class UserDao {
              usr.setIdUser( rs.getInt("id_User"));
              usr.setEmail(rs.getString("email"));
              usr.setPassword(rs.getString("password"));
-             usr.setTypeOfUser(rs.getInt("type_User"));
+             usr.setUserType(rs.getInt("user_Type"));
              usr.setToken(rs.getString("token"));
         }
 
