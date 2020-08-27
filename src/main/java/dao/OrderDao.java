@@ -35,8 +35,7 @@ public class OrderDao {
      public static Order searchOrderDetails(Date date) throws SQLException, Exception {
         Order ord = null;
 
-        String query = "SELECT * FROM order WHERE date = '" + date + "';";
-
+        String query = "SELECT * FROM order WHERE date = '" + date + "'";
         PreparedStatement st = con.prepareStatement(query);
 
         ResultSet rs = st.executeQuery();
@@ -51,7 +50,6 @@ public class OrderDao {
         return ord;
     }
 
-    /*Teste*/
     /*This method changes the informations about the User, except for the type, 
     this is only registered one time*/
     public static boolean updateOrder(Order order) throws SQLException {

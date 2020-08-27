@@ -35,7 +35,7 @@ public class PessoaFisicaDao {
         st.execute();
 
         //Second - Insert Customer 
-        query = "INSERT INT customer(id_Customer, user_id_User) VALUES(?, ?)";
+        query = "INSERT INTO customer(id_Customer, user_id_User) VALUES(?, ?)";
         st = con.prepareStatement(query);
         st.setInt(1, pf.getIdCustomer());
         st.setInt(2, pf.getIdUser());
