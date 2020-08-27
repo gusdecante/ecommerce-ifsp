@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-public class MysqlConection {
+public class MysqlConnection {
     
-    private Connection conexao = null;
+    private Connection connection = null;
     private final String HOST = "localhost";
-    private final String BANCO = "ecommerceDB";
+    private final String DB = "ecommerceDB";
     private final String LOGIN = "gerencia";
-    private final String SENHA = "9eq3y%NhPG83o9fLZ%xL";
+    private final String PWD = "9eq3y%NhPG83o9fLZ%xL";
     
 
     public Connection getConnection() {
@@ -18,21 +18,21 @@ public class MysqlConection {
         try {
             MysqlDataSource ds = new MysqlDataSource();
             ds.setServerName(HOST);
-            ds.setDatabaseName(BANCO);
+            ds.setDatabaseName(DB);
             ds.setUser(LOGIN);
-            ds.setPassword(SENHA);
+            ds.setPassword(PWD);
             ds.setServerTimezone("UTC");
 
             ds.setConnectTimeout(2000);
 
-            conexao = ds.getConnection();
-            System.out.println("CONECTADO AO BANCO DE DADOS.");
+            connection = ds.getConnection();
+            System.out.println("MYSQL CONNECTED.");
             
         } catch (SQLException sqle) {
-            System.out.println("FALHA NA CONEXÃO: " + sqle.getMessage());
+            System.out.println("CONNECT FAIL: " + sqle.getMessage());
         }
 
-        return conexao;
+        return connection;
     }
 
 }

@@ -3,19 +3,26 @@ package model;
 import java.sql.Date;
 
 public class PessoaFisica extends Customer {
-    private int idPessoaFisica, customer_id_Customer;
+    private int idPessoaFisica, customerIdCustomer;
     private String CPF;
     private String RG;
-    private Date dateOfBirth;
+    private String nameCustomer;
 
-    public Date getDateOfBirth() {
-        return this.dateOfBirth;
+    public int getIdPessoaFisica() {
+        return this.idPessoaFisica;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setIdPessoaFisica(int idPessoaFisica) {
+        this.idPessoaFisica = idPessoaFisica;
     }
 
+    public int getCustomerIdCustomer() {
+        return this.customerIdCustomer;
+    }
+
+    public void setCustomerIdCustomer(int customerIdCustomer) {
+        this.customerIdCustomer = customerIdCustomer;
+    }
 
     public String getCPF() {
         return this.CPF;
@@ -33,21 +40,22 @@ public class PessoaFisica extends Customer {
         this.RG = RG;
     }
 
-    public int getIdPessoaFisica() {
-        return this.idPessoaFisica;
+    public String getNameCustomer() {
+        return this.nameCustomer;
     }
 
-    public void setIdPessoaFisica(int idPessoaFisica) {
-        this.idPessoaFisica = idPessoaFisica;
+    public void setNameCustomer(String nameCustomer) {
+        this.nameCustomer = nameCustomer;
     }
 
-
-    public int getCustomer_id_Customer() {
-        return this.customer_id_Customer;
+    public Date getDateBirth() {
+        return this.dateBirth;
     }
 
-    public void setCustomer_id_Customer(int customer_id_Customer) {
-        this.customer_id_Customer = customer_id_Customer;
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
     }
+    private Date dateBirth;
+
 
 }

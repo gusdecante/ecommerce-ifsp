@@ -1,9 +1,10 @@
 package model;
 
 public class PessoaJuridica extends Customer{
-    private int idPessoaJuridica, customer_id_Customer;
+    private int idPessoaJuridica;
     private String cnpj;
     private String razaoSocial;
+    private int customerIdCustomer;
 
     public int getIdPessoaJuridica() {
         return this.idPessoaJuridica;
@@ -29,13 +30,11 @@ public class PessoaJuridica extends Customer{
         this.razaoSocial = razaoSocial;
     }
 
-    public int getCustomer_id_Customer() {
-        return this.customer_id_Customer;
+    public int getCustomerIdCustomer() {
+        return this.customerIdCustomer;
     }
 
-    public void setCustomer_id_Customer(int customer_id_Customer) {
-        this.customer_id_Customer = customer_id_Customer;
+    public void setCustomerIdCustomer(int customerIdCustomer) {
+        this.customerIdCustomer = customerIdCustomer;
     }
-
-
 }

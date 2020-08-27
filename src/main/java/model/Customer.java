@@ -1,8 +1,7 @@
 package model;
 
 public class Customer extends User{
-    private int idCustomer;
-    private String nameCustomer;
+    private int idCustomer, userIdUser;
     
     public int getIdCustomer() {
         return this.idCustomer;
@@ -12,11 +11,12 @@ public class Customer extends User{
         this.idCustomer = idCustomer;
     }
 
-    public String getNameCustomer() {
-        return this.nameCustomer;
+    public int getUserIdUser() {
+        return this.userIdUser;
     }
 
-    public void setNameCustomer(String nameCustomer) {
-        this.nameCustomer = nameCustomer;
+    public void setUserIdUser(int userIdUser) {
+        this.userIdUser = userIdUser;
     }
+
 }
