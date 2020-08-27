@@ -69,6 +69,4 @@ public class Address extends Customer{
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-
-
 }
