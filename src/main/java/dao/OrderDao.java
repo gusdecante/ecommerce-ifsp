@@ -36,7 +36,6 @@ public class OrderDao {
         Order ord = null;
 
         String query = "SELECT * FROM order WHERE date = '" + date + "'";
-
         PreparedStatement st = con.prepareStatement(query);
 
         ResultSet rs = st.executeQuery();
@@ -50,7 +49,6 @@ public class OrderDao {
         con.close();
         return ord;
     }
-
 
     /*This method changes the informations about the User, except for the type, 
     this is only registered one time*/
