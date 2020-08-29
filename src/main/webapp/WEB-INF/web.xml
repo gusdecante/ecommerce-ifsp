@@ -10,4 +10,9 @@
     <servlet-class>controller.ProductController</servlet-class>
   </servlet>
 
+  <servlet-mapping>
+    <servlet-name>controllerProductServlet</servlet-name>
+    <url-pattern>/product</url-pattern>
+  </servlet-mapping>
+
 </web-app>
