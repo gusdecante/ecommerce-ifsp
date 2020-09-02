@@ -87,5 +87,63 @@ public class ProductController extends HttpServlet{
         saida.close();
 
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
+
+        PrintWriter saida = resp.getWriter();
+
+        //CREATE JSON WITH db RESULT OF TRANSATION
+        try {
+            // criar validação de usuário.
+            //
+            //
+            if (
+                req.getParameter("categoryIdCategory") == null || req.getParameter("categoryIdCategory").equals("") ||
+                req.getParameter("color") == null || req.getParameter("color").equals("") ||
+                req.getParameter("finishingProcess") == null || req.getParameter("finishingProcess").equals("") ||
+                req.getParameter("stock") == null || req.getParameter("stock").equals("") ||
+                req.getParameter("unitaryValue") == null || req.getParameter("unitaryValue").equals("") ||
+                req.getParameter("imageLink") == null || req.getParameter("imageLink").equals("")
+            ) {
+                saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
+            } else {
+                Product p = new Product();
+            
+                p.setCategoryIdCategory(Integer.parseInt(req.getParameter("categoryIdCategory")));
+                p.setColor(req.getParameter("color"));
+                p.setFinishingProcess(req.getParameter("finishingProcess"));
+                p.setCubaType(req.getParameter("cubaType"));
+                p.setDescription(req.getParameter("description"));
+                p.setStock(Integer.parseInt(req.getParameter("stock")));
+                p.setUnitaryValue(Double.parseDouble(req.getParameter("unitaryValue")));
+                p.setImageLink(req.getParameter("imageLink"));
+
+                ProductDao pd = new ProductDao();
+
+                boolean ok = false;
+
+                ok = pd.registerProduct(p);
+
+                if(ok)
+                    saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
+                else
+                    saida.println("[ { \"result\" : \"Falha na inserção de dados\" } ]");
+            }                        
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro N " + e.getMessage() + "\" } ]");
+        } catch (Exception e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
+        }
+
+    }
+
  
 }
