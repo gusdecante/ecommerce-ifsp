@@ -126,11 +126,9 @@
 
 //                 /*Class*/Dao pd = new /*Class*/Dao();
 
-//                 boolean ok = false;
+//                 boolean ok = pd.register/*Class*/(insert/*Class*/);
 
-//                 ok = pd.register/*Class*/(insert/*Class*/);
-
-//                 if(ok)
+//                 if(ok == 1)
 //                     saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
 //                 else
 //                     saida.println("[ { \"result\" : \"Falha na inserção de dados\" } ]");
@@ -144,6 +142,44 @@
 //             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
 //         }
 
+//     }
+
+//     @Override
+//     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       
+//         resp.setContentType("application/json");
+//         resp.setCharacterEncoding("UTF-8");
+//         req.setCharacterEncoding("UTF-8");
+
+//         PrintWriter saida = resp.getWriter();
+
+//         //CREATE JSON WITH QUERY FROM DB
+//         try {
+//             // criar validação de usuário.
+//             //
+//             //
+            
+//             if (req.getParameter("id") == null || req.getParameter("id").equals("")) {
+//                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
+//             } else {
+                
+//                 /*Class*/Dao d = new /*Class*/Dao();
+
+//                 int ok = d.delete/*Class*/(Integer.parseInt(req.getParameter("id")));
+
+//                 if(ok == 1)
+//                     saida.println("[ { \"result\" : \"Dado excluido com sucesso\" } ]");
+//                 else
+//                     saida.println("[ { \"result\" : \"Falha na exclusão\" } ]");
+//             }
+            
+//         } catch (NumberFormatException e) {
+//             e.printStackTrace();
+//             saida.println("[ { \"result\" : \"Erro N " + e.getMessage() + "\" } ]");
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
+//         }
 //     }
 
 // }
