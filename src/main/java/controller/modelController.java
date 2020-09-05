@@ -104,7 +104,7 @@
 //             ) {
 //                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
 //             } else {
-//                 /*Class*/ in/*Class*/. = new /*Class*/();
+//                 /*Class*/ in/*Class*/ = new /*Class*/();
             
 //                 in/*Class*/.set(Integer.parseInt(req.getParameter("")));
 //                 in/*Class*/.set(req.getParameter(""));
