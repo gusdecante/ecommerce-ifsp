@@ -105,17 +105,17 @@ public class /*Class*/Controller extends HttpServlet{
             ) {
                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
             } else {
-                /*Class*/ insert/*Class*/. = new /*Class*/();
+                /*Class*/ in/*Class*/. = new /*Class*/();
             
-                insert/*Class*/.set(Integer.parseInt(req.getParameter("")));
-                insert/*Class*/.set(req.getParameter(""));
-                insert/*Class*/.set(req.getParameter(""));
-                insert/*Class*/.set(req.getParameter(""));
-                insert/*Class*/.set(req.getParameter(""));
+                in/*Class*/.set(Integer.parseInt(req.getParameter("")));
+                in/*Class*/.set(req.getParameter(""));
+                in/*Class*/.set(req.getParameter(""));
+                in/*Class*/.set(req.getParameter(""));
+                in/*Class*/.set(req.getParameter(""));
 
                 /*Class*/Dao d = new /*Class*/Dao();
 
-                int ok = d.register/*Class*/(insert/*Class*/);
+                int ok = d.register/*Class*/(in/*Class*/);
 
                 if(ok == 1)
                     saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
@@ -171,4 +171,53 @@ public class /*Class*/Controller extends HttpServlet{
         }
     }
 
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
+
+        PrintWriter saida = resp.getWriter();
+
+        //CREATE JSON WITH db RESULT OF TRANSATION
+        try {
+            // criar validação de usuário.
+            //
+            //
+            if (
+                req.getParameter("id/*Class*/") == null || req.getParameter("id/*Class*/").equals("") ||
+                req.getParameter("") == null || req.getParameter("").equals("") ||
+                req.getParameter("") == null || req.getParameter("").equals("") ||
+                req.getParameter("") == null || req.getParameter("").equals("")
+            ) {
+                saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
+
+            } else {
+                /*Class*/ up/*Class*/ = new /*Class*/();
+            
+                up/*Class*/.setId/*Class*/(Integer.parseInt(req.getParameter("id/*Class*/")));
+                up/*Class*/.set(req.getParameter(""));
+                up/*Class*/.set(req.getParameter(""));
+                up/*Class*/.set(req.getParameter(""));
+
+                /*Class*/Dao d = new /*Class*/Dao();
+
+                int ok = d.update/*Class*/(up/*Class*/);
+
+                if(ok == 1)
+                    saida.println("[ { \"result\" : \"Dados atualizados com sucesso\" } ]");
+                else
+                    saida.println("[ { \"result\" : \"Falha na atualização de dados\" } ]");
+            }                        
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro N " + e.getMessage() + "\" } ]");
+        } catch (Exception e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
+        }
+
+    }
 }
