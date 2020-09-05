@@ -20,8 +20,8 @@ public class ProductDao {
     }
 
     //Insert register on the mysql table
-    public boolean registerProduct(Product i) {
-        boolean isSuccess = false;
+    public int registerProduct(Product i) {
+        int ok = 0;
         try {
             String query = "INSERT INTO product (id_Product, category_id_Category, color, finishing_Process, cuba_Type, description, stock, unitary_Value, image_Link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -37,24 +37,22 @@ public class ProductDao {
             st.setDouble(8, i.getUnitaryValue());
             st.setString(9, i.getImageLink());
             
-            st.executeUpdate(); //Execute the insert
+            ok = st.executeUpdate(); //Execute the insert
             st.close(); //Close the Statment
             con.close(); //Close the connection
-            isSuccess = true;
             
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
 
     //Select register on the mysql table
     public List<Product> searchProduct() throws SQLException, Exception {
 
-        List<Product> lista = new ArrayList();
-        String query = "SELECT * FROM product ;";
+        List<Product> lista = new ArrayList<Product>();
+        String query = "SELECT product.*, category.* FROM product, category WHERE category_id_Category = id_Category ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         ResultSet rs = st.executeQuery(); //Execute the select
@@ -71,6 +69,10 @@ public class ProductDao {
             p.setStock(rs.getInt("stock"));
             p.setUnitaryValue(rs.getDouble("unitary_Value"));
             p.setImageLink(rs.getString("image_Link"));
+
+            p.setIdCategory(rs.getInt("id_Category"));
+            p.setCategory(rs.getString("category"));
+            
 
             lista.add(p);
         }
@@ -82,75 +84,72 @@ public class ProductDao {
     }
 
     //Update register on the mysql table
-    public boolean updateProduct(Product u) {
-        boolean isSuccess = false;
+    public int updateProduct(Product u) {
+
+        int ok = 0;
+
         try {
-            String query = "UPDATE product SET id_Product = ?, category_id_Category = ?, color = ?, finishing_Process = ?, cuba_Type = ?, description = ?, stock = ?, unitary_Value = ?, image_Link = ? ;";
+            String query = "UPDATE product SET category_id_Category = ?, color = ?, finishing_Process = ?, cuba_Type = ?, description = ?, stock = ?, unitary_Value = ?, image_Link = ? WHERE id_Product = ? ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
-            //Select id informated 
+            //Select id informated
             List<Product> l = new ProductDao().searchProduct(u.getIdProduct());
-                
+            
             for (Product lc : l) {
-                st.setInt(1, lc.getIdProduct());
+                st.setInt(9, lc.getIdProduct());
             }
-            st.setInt(2, u.getCategoryIdCategory());
-            st.setString(3, u.getColor());
-            st.setString(4, u.getFinishingProcess());
-            st.setString(5, u.getCubaType());
-            st.setString(6, u.getDescription());
-            st.setInt(7, u.getStock());
-            st.setDouble(8, u.getUnitaryValue());
-            st.setString(9, u.getImageLink());
 
-            st.executeUpdate(); //Execute the update
+            st.setInt(1, u.getCategoryIdCategory());
+            st.setString(2, u.getColor());
+            st.setString(3, u.getFinishingProcess());
+            st.setString(4, u.getCubaType());
+            st.setString(5, u.getDescription());
+            st.setInt(6, u.getStock());
+            st.setDouble(7, u.getUnitaryValue());
+            st.setString(8, u.getImageLink());
+
+            ok = st.executeUpdate(); //Execute the update
             st.close(); //Close the Statment
             con.close(); //Close the connection
 
-            isSuccess = true;
-
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         } catch (Exception e) {
             e.printStackTrace();
-            isSuccess = false;
         }
 
-        return isSuccess;
+        return ok;
     }
 
     //delete register on the mysql table
-    public boolean deleteProduct(int d) {
-        boolean isSuccess = false;
+    public int deleteProduct(int d) {
+        int ok = 0;
+
         try {
             String query = "DELETE FROM product WHERE id_Product = ?;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             st.setInt(1, d);
 
-            st.executeUpdate(); //Execute the Delete
+            ok = st.executeUpdate(); //Execute the Delete
             st.close(); //Close the Statment
             con.close(); //Close the connection
-
-            isSuccess = true;
             
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
 
     //Select specifical register on the mysql table
     public List<Product> searchProduct(int idProduct) throws SQLException, Exception {
 
-        List<Product> lista = new ArrayList();
-        String query = "SELECT * FROM product WHERE id_Product = ?;";
+        List<Product> lista = new ArrayList<Product>();
+        String query = "SELECT product.*, category.* FROM product, category WHERE category_id_Category = id_Category AND id_Product = ? ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
-        st.setInt(2, idProduct);
+        st.setInt(1, idProduct);
 
         ResultSet rs = st.executeQuery(); //Execute the select
 
@@ -166,6 +165,9 @@ public class ProductDao {
             p.setStock(rs.getInt("stock"));
             p.setUnitaryValue(rs.getDouble("unitary_Value"));
             p.setImageLink(rs.getString("image_Link"));
+
+            p.setIdCategory(rs.getInt("id_Category"));
+            p.setCategory(rs.getString("category"));
 
             lista.add(p);
         }
