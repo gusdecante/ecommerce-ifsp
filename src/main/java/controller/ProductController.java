@@ -30,10 +30,10 @@ public class ProductController extends HttpServlet{
         try {
             int parameter, n = 0;
 
-            if (req.getParameter("id") == null || req.getParameter("id").equals("")) {
+            if (req.getParameter("idProduct") == null || req.getParameter("idProduct").equals("")) {
                 parameter = 0;
             } else {
-                parameter = Integer.parseInt(req.getParameter("id"));
+                parameter = Integer.parseInt(req.getParameter("idProduct"));
             }         
 
             ProductDao d = new ProductDao();
@@ -45,6 +45,7 @@ public class ProductController extends HttpServlet{
                 lst = d.searchProduct(parameter);
             }
             n = lst.size();
+
             if (n == 0) {
                 saida.println("[ { \"result\" : \"Não há resultado\" } ]");
             } else {
@@ -52,15 +53,17 @@ public class ProductController extends HttpServlet{
 
                 for (Product selectProduct : lst) {
 
-                    selectProduct.getIdProduct();
-                    selectProduct.getCategoryIdCategory();
-                    selectProduct.getColor();
-                    selectProduct.getFinishingProcess();
-                    selectProduct.getCubaType();
-                    selectProduct.getDescription();
-                    selectProduct.getStock();
-                    selectProduct.getUnitaryValue();
-                    selectProduct.getImageLink();
+                    // selectProduct.getIdProduct();
+                    // selectProduct.getCategory();
+                    // //selectProduct.getCategoryIdCategory();
+                    // selectProduct.getColor();
+                    // selectProduct.getFinishingProcess();
+                    // selectProduct.getCubaType();
+                    // selectProduct.getDescription();
+                    // selectProduct.getStock();
+                    // selectProduct.getUnitaryValue();
+                    // selectProduct.getImageLink();
+                    
                     
                     String strProduct = new Gson().toJson(selectProduct);
 
@@ -85,7 +88,6 @@ public class ProductController extends HttpServlet{
 
         saida.flush();
         saida.close();
-
     }
     
     @Override
@@ -112,20 +114,20 @@ public class ProductController extends HttpServlet{
             ) {
                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
             } else {
-                Product p = new Product();
+                Product inProduct = new Product();
             
-                p.setCategoryIdCategory(Integer.parseInt(req.getParameter("categoryIdCategory")));
-                p.setColor(req.getParameter("color"));
-                p.setFinishingProcess(req.getParameter("finishingProcess"));
-                p.setCubaType(req.getParameter("cubaType"));
-                p.setDescription(req.getParameter("description"));
-                p.setStock(Integer.parseInt(req.getParameter("stock")));
-                p.setUnitaryValue(Double.parseDouble(req.getParameter("unitaryValue")));
-                p.setImageLink(req.getParameter("imageLink"));
+                inProduct.setCategoryIdCategory(Integer.parseInt(req.getParameter("categoryIdCategory")));
+                inProduct.setColor(req.getParameter("color"));
+                inProduct.setFinishingProcess(req.getParameter("finishingProcess"));
+                inProduct.setCubaType(req.getParameter("cubaType"));
+                inProduct.setDescription(req.getParameter("description"));
+                inProduct.setStock(Integer.parseInt(req.getParameter("stock")));
+                inProduct.setUnitaryValue(Double.parseDouble(req.getParameter("unitaryValue")));
+                inProduct.setImageLink(req.getParameter("imageLink"));
 
-                ProductDao pd = new ProductDao();
+                ProductDao d = new ProductDao();
 
-                int ok = pd.registerProduct(p);
+                int ok = d.registerProduct(inProduct);
 
                 if(ok == 1)
                     saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
@@ -157,14 +159,13 @@ public class ProductController extends HttpServlet{
             // criar validação de usuário.
             //
             //
-            
-            if (req.getParameter("id") == null || req.getParameter("id").equals("")) {
+            if (req.getParameter("idProduct") == null || req.getParameter("idProduct").equals("")) {
                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
             } else {
                 
                 ProductDao d = new ProductDao();
 
-                int ok = d.deleteProduct(Integer.parseInt(req.getParameter("id")));
+                int ok = d.deleteProduct(Integer.parseInt(req.getParameter("idProduct")));
 
                 if(ok == 1)
                     saida.println("[ { \"result\" : \"Dado excluido com sucesso\" } ]");
@@ -179,6 +180,64 @@ public class ProductController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
+
+        PrintWriter saida = resp.getWriter();
+
+        //CREATE JSON WITH db RESULT OF TRANSATION
+        try {
+            // criar validação de usuário.
+            //
+            //
+            if (
+                req.getParameter("idProduct") == null || req.getParameter("idProduct").equals("") ||
+                req.getParameter("categoryIdCategory") == null || req.getParameter("categoryIdCategory").equals("") ||
+                req.getParameter("color") == null || req.getParameter("color").equals("") ||
+                req.getParameter("finishingProcess") == null || req.getParameter("finishingProcess").equals("") ||
+                req.getParameter("stock") == null || req.getParameter("stock").equals("") ||
+                req.getParameter("unitaryValue") == null || req.getParameter("unitaryValue").equals("") ||
+                req.getParameter("imageLink") == null || req.getParameter("imageLink").equals("")
+            ) {
+                saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
+
+            } else {
+                Product upProduct = new Product();
+            
+                upProduct.setIdProduct(Integer.parseInt(req.getParameter("idProduct")));
+                upProduct.setCategoryIdCategory(Integer.parseInt(req.getParameter("categoryIdCategory")));
+                upProduct.setColor(req.getParameter("color"));
+                upProduct.setFinishingProcess(req.getParameter("finishingProcess"));
+                upProduct.setCubaType(req.getParameter("cubaType"));
+                upProduct.setDescription(req.getParameter("description"));
+                upProduct.setStock(Integer.parseInt(req.getParameter("stock")));
+                upProduct.setUnitaryValue(Double.parseDouble(req.getParameter("unitaryValue")));
+                upProduct.setImageLink(req.getParameter("imageLink"));
+
+                ProductDao d = new ProductDao();
+
+                int ok = d.updateProduct(upProduct);
+
+                if(ok == 1)
+                    saida.println("[ { \"result\" : \"Dados atualizados com sucesso\" } ]");
+                else
+                    saida.println("[ { \"result\" : \"Falha na atualização de dados\" } ]");
+            }                        
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro N " + e.getMessage() + "\" } ]");
+        } catch (Exception e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
+        }
+
     }
 
 }
