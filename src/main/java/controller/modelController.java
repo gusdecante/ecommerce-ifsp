@@ -107,18 +107,15 @@ public class /*Class*/Controller extends HttpServlet{
             } else {
                 /*Class*/ insert/*Class*/. = new /*Class*/();
             
-                insert/*Class*/.setCategoryIdCategory(Integer.parseInt(req.getParameter("categoryIdCategory")));
-                insert/*Class*/.setColor(req.getParameter("color"));
-                insert/*Class*/.setFinishingProcess(req.getParameter("finishingProcess"));
-                insert/*Class*/.setCubaType(req.getParameter("cubaType"));
-                insert/*Class*/.setDescription(req.getParameter("description"));
-                insert/*Class*/.setStock(Integer.parseInt(req.getParameter("stock")));
-                insert/*Class*/.setUnitaryValue(Double.parseDouble(req.getParameter("unitaryValue")));
-                insert/*Class*/.setImageLink(req.getParameter("imageLink"));
+                insert/*Class*/.set(Integer.parseInt(req.getParameter("")));
+                insert/*Class*/.set(req.getParameter(""));
+                insert/*Class*/.set(req.getParameter(""));
+                insert/*Class*/.set(req.getParameter(""));
+                insert/*Class*/.set(req.getParameter(""));
 
-                /*Class*/Dao pd = new /*Class*/Dao();
+                /*Class*/Dao d = new /*Class*/Dao();
 
-                boolean ok = pd.register/*Class*/(insert/*Class*/);
+                int ok = d.register/*Class*/(insert/*Class*/);
 
                 if(ok == 1)
                     saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
