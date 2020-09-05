@@ -148,13 +148,13 @@ public class /*Class*/Controller extends HttpServlet{
             //
             //
             
-            if (req.getParameter("id") == null || req.getParameter("id").equals("")) {
+            if (req.getParameter("id/*Class*/") == null || req.getParameter("id/*Class*/").equals("")) {
                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
             } else {
                 
                 /*Class*/Dao d = new /*Class*/Dao();
 
-                int ok = d.delete/*Class*/(Integer.parseInt(req.getParameter("id")));
+                int ok = d.delete/*Class*/(Integer.parseInt(req.getParameter("id/*Class*/")));
 
                 if(ok == 1)
                     saida.println("[ { \"result\" : \"Dado excluido com sucesso\" } ]");
