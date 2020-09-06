@@ -40,7 +40,7 @@
 
   <servlet>
     <servlet-name>controllerUserServlet</servlet-name>
-    <servlet-class>controller.PaymentFormController</servlet-class>
+    <servlet-class>controller.UserController</servlet-class>
   </servlet>
 
   <servlet-mapping>
