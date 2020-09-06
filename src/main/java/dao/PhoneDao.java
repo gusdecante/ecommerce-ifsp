@@ -6,36 +6,50 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import util.MysqlConection;
 import model.Phone;
 
+import util.MysqlConnection;
+
 public class PhoneDao {
+
     private Connection con;
 
+    //Mysql connection created
     public PhoneDao() {
-        con = new MysqlConection().getConnection();
-    }
-    //Register Customer
-    public void registerPhone(Phone ph) throws SQLException {
-        String query;
-        query = "INSERT INTO phone(id_Phone, phone, customer_id_Customer) VALUES(?, ?, ?);";
-        PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1, ph.getIdPhone());
-        st.setString(2, ph.getPhone());
-        st.setInt(3, ph.getCustomerIdCustomer());
-        st.execute();
-        st.close();
-        con.close();
+        con = new MysqlConnection().getConnection();
     }
 
-    //List of phone number of the customer
-    public List<Phone> search(int idCustomer) throws SQLException, Exception{
-        List<Phone> listOPhones = new ArrayList<>();
-        String query = "SELECT * FROM phone WHERE customer_id_Customer = '" + idCustomer+ "'";
-        PreparedStatement st = con.prepareStatement(query);
+    //Insert register on the mysql table
+    public int registerPhone(Phone i) {
+        int ok = 0;
+        try {
+            String query = "INSERT INTO phone (id_Phone, phone, customer_id_Customer) VALUES (?, ?, ?) ;";
 
-        ResultSet rs = st.executeQuery();
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+
+            st.setInt(1, 0);
+            st.setString(2, i.getPhone());
+            st.setInt(3, i.getCustomerIdCustomer());
+
+            ok = st.executeUpdate(); //Execute the insert
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return ok;
+    }
+
+    //Select register on the mysql table
+    public List<Phone> searchPhone() throws SQLException, Exception {
+
+        List<Phone> lista = new ArrayList<Phone>();
+        String query = "SELECT * FROM phone ;";
+
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        ResultSet rs = st.executeQuery(); //Execute the select
 
         while(rs.next()) {
             Phone ph = new Phone();
@@ -43,32 +57,119 @@ public class PhoneDao {
             ph.setIdPhone(rs.getInt("id_Phone"));
             ph.setPhone(rs.getString("phone"));
             ph.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
-            listOPhones.add(ph);
+
+            lista.add(ph);
+        }
+        
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
+    }
+
+    //Update register on the mysql table
+    public int updatePhone(Phone u) {
+        int ok = 0;
+        try {
+            String query = "UPDATE phone SET phone = ?, customer_id_Customer = ? WHERE id_Phone = ? ;";
+
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+            //Select id informated 
+            List<Phone> l = new PhoneDao().searchPhone(u.getIdPhone());
+                
+            for (Phone lc : l) {
+                st.setInt(3, lc.getIdPhone());
+            }
+            st.setString(1, u.getPhone());
+            st.setInt(2, u.getCustomerIdCustomer());
+
+            ok = st.executeUpdate(); //Execute the update
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return listOPhones;
-    } 
+        return ok;
+    }
 
-    //Delete phone
-    public boolean deletePhone(int idPhone) {
-        boolean isSuccess = false;
+    //delete register on the mysql table
+    public int deletePhone(int d) {
+        int ok = 0;
         try {
             String query = "DELETE FROM phone WHERE id_Phone = ?;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
-            st.setInt(1, idPhone);
+            st.setInt(1, d);
 
-            st.executeUpdate(); //Execute the Delete
+            ok = st.executeUpdate(); //Execute the Delete
             st.close(); //Close the Statment
             con.close(); //Close the connection
-
-            isSuccess = true;
             
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
+
+    //Select specifical register on the mysql table
+    public List<Phone> searchPhone(int idPhone) throws SQLException, Exception {
+
+        List<Phone> lista = new ArrayList<Phone>();
+        String query = "SELECT * FROM phone WHERE id_Phone = ? ;";
+
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        st.setInt(1, idPhone);
+
+        ResultSet rs = st.executeQuery(); //Execute the select
+
+        while(rs.next()) {
+            Phone ph = new Phone();
+
+            ph.setIdPhone(rs.getInt("id_Phone"));
+            ph.setPhone(rs.getString("phone"));
+            ph.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
+
+            lista.add(ph);
+
+        }
+
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
+    }
+    
+    //Select specifical register on the mysql table
+    public List<Phone> searchPhoneCustomer(int customerIdCustomer) throws SQLException, Exception {
+
+        List<Phone> lista = new ArrayList<Phone>();
+        String query = "SELECT * FROM phone WHERE customer_id_Customer = ? ;";
+
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        st.setInt(1, customerIdCustomer);
+
+        ResultSet rs = st.executeQuery(); //Execute the select
+
+        while(rs.next()) {
+            Phone ph = new Phone();
+
+            ph.setIdPhone(rs.getInt("id_Phone"));
+            ph.setPhone(rs.getString("phone"));
+            ph.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
+
+            lista.add(ph);
+           
+        }
+
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
+    }
+
 }
