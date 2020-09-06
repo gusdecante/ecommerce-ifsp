@@ -59,4 +59,15 @@
     <url-pattern>/address</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>controllerPhoneServlet</servlet-name>
+    <servlet-class>controller.PhoneController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerPhoneServlet</servlet-name>
+    <url-pattern>/phone</url-pattern>
+  </servlet-mapping>
+
 </web-app>
