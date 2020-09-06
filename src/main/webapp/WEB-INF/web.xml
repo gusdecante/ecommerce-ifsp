@@ -15,6 +15,7 @@
     <url-pattern>/product</url-pattern>
   </servlet-mapping>
 
+
   <servlet>
     <servlet-name>controllerCategoryServlet</servlet-name>
     <servlet-class>controller.CategoryController</servlet-class>
@@ -24,5 +25,17 @@
     <servlet-name>controllerCategoryServlet</servlet-name>
     <url-pattern>/category</url-pattern>
   </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>controllerPaymentFormServlet</servlet-name>
+    <servlet-class>controller.PaymentFormController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerPaymentFormServlet</servlet-name>
+    <url-pattern>/paymentForm</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>
