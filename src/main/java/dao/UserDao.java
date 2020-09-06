@@ -4,77 +4,152 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 import model.User;
+
 import util.MysqlConnection;
 
-
 public class UserDao {
-    private static Connection con;
 
+    private Connection con;
+
+    //Mysql connection created
     public UserDao() {
-        con = new MysqlConnection().getConnection(); //Create the connection
+        con = new MysqlConnection().getConnection();
     }
 
-    public void registerUser(User u) throws SQLException {
-        String query;
-        query = "INSERT INTO user (id_User, email, password, user_Type, token) VALUES (?, ?, ?, ?, ?);";
+    //Insert register on the mysql table
+    public int registerUser(User i) {
+        int ok = 0;
+        try {
+            String query = "INSERT INTO user (id_User, email, password, user_Type, token) VALUES (?, ?, ?, ?, ?) ;";
 
-        PreparedStatement st = con.prepareStatement(query); //User the connection to set the values
-        st.setInt(1, u.getIdUser());
-        st.setString(2, u.getEmail());
-        st.setString(3, u.getPassword());
-        st.setInt(4, u.getUserType());
-        st.setString(5, u.getToken());
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
 
-        st.execute(); //Execute the query
-        st.close(); //Close the Statment
-        con.close(); //Close the connection
+            st.setInt(1, 0);
+            st.setString(2, i.getEmail());
+            st.setString(3, i.getPassword());
+            st.setInt(4, i.getUserType());
+            st.setString(5, i.getToken());
+
+            ok = st.executeUpdate(); //Execute the insert
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return ok;
     }
 
-    //This method search the details about the user
-    public static User searchUserDetails(String email) throws SQLException, Exception {
-        User usr = null;
+    //Select register on the mysql table
+    public List<User> searchUser() throws SQLException, Exception {
 
-        String query = "SELECT * FROM user WHERE email = '" + email + "'";
+        List<User> lista = new ArrayList<User>();
+        String query = "SELECT * FROM user ;";
 
-        PreparedStatement st = con.prepareStatement(query);
-
-        ResultSet rs = st.executeQuery();
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        ResultSet rs = st.executeQuery(); //Execute the select
 
         while(rs.next()) {
-             usr.setIdUser( rs.getInt("id_User"));
-             usr.setEmail(rs.getString("email"));
-             usr.setPassword(rs.getString("password"));
-             usr.setUserType(rs.getInt("user_Type"));
-             usr.setToken(rs.getString("token"));
-        }
+            User u = new User();
 
-        con.close();
-        return usr;
+            u.setIdUser(rs.getInt("id_User"));
+            u.setEmail(rs.getString("email"));
+            u.setPassword(rs.getString("password"));
+            u.setUserType(rs.getInt("user_Type"));
+            u.setToken(rs.getString("token"));
+
+            lista.add(u);
+        }
+        
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
     }
 
-    /*This method changes the informations about the User, except for the type, 
-    this is only registered one time*/
-    public static boolean updateUser(User user) throws SQLException {
-        boolean isSuccess = false;
+    //Update register on the mysql table
+    public int updateUser(User u) {
+        int ok = 0;
         try {
-            String query = "UPDATE User SET id_User = ?, email = ?, password = ?, user_Type = ?, token = ? WHERE email = ?";
-            PreparedStatement st = con.prepareStatement(query);
-            st.setInt(1, user.getIdUser());
-            st.setString(2, user.getEmail());
-            st.setString(3, user.getPassword());
-            st.setInt(4, user.getTypeOfUser());
-            st.setString(5, user.getToken());//The type of user stay the same
+            String query = "UPDATE user SET email = ?, password = ?, user_Type = ?, token = ? WHERE id_User = ? ;";
 
-            isSuccess = true;
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+            //Select id informated 
+            List<User> l = new UserDao().searchUser(u.getIdUser());
+                
+            for (User lc : l) {
+                st.setInt(5, lc.getIdUser());
+            }
+            st.setString(1, u.getEmail());
+            st.setString(2, u.getPassword());
+            st.setInt(3, u.getUserType());
+            st.setString(4, u.getToken());
+
+            ok = st.executeUpdate(); //Execute the update
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-            isSuccess = false;
         }
-        con.close();
-        return isSuccess;
-    }    
-    
+
+        return ok;
+    }
+
+    //delete register on the mysql table
+    public int deleteUser(int d) {
+        int ok = 0;
+        try {
+            String query = "DELETE FROM user WHERE id_User = ?;";
+
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+            st.setInt(1, d);
+
+            ok = st.executeUpdate(); //Execute the Delete
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return ok;
+    }
+
+    //Select specifical register on the mysql table
+    public List<User> searchUser(int idUser) throws SQLException, Exception {
+
+        List<User> lista = new ArrayList<User>();
+        String query = "SELECT * FROM user WHERE id_User = ? ;";
+
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        st.setInt(1, idUser);
+
+        ResultSet rs = st.executeQuery(); //Execute the select
+
+        while(rs.next()) {
+            User u = new User();
+
+            u.setIdUser(rs.getInt("id_User"));
+            u.setEmail(rs.getString("email"));
+            u.setPassword(rs.getString("password"));
+            u.setUserType(rs.getInt("user_Type"));
+            u.setToken(rs.getString("token"));
+
+            lista.add(u);
+           
+        }
+
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
+    }
     
 }
