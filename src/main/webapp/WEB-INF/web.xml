@@ -15,4 +15,14 @@
     <url-pattern>/product</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>controllerCategoryServlet</servlet-name>
+    <servlet-class>controller.CategoryController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerCategoryServlet</servlet-name>
+    <url-pattern>/category</url-pattern>
+  </servlet-mapping>
+
 </web-app>
