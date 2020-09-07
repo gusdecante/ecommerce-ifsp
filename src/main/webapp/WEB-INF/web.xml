@@ -70,4 +70,15 @@
     <url-pattern>/phone</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>controllerCustomerServlet</servlet-name>
+    <servlet-class>controller.CustomerController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerCustomerServlet</servlet-name>
+    <url-pattern>/customer</url-pattern>
+  </servlet-mapping>
+
 </web-app>
