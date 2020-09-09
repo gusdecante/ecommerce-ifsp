@@ -103,4 +103,15 @@
     <url-pattern>/order</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>controllerOrderItemServlet</servlet-name>
+    <servlet-class>controller.OrderItemController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerOrderItemServlet</servlet-name>
+    <url-pattern>/orderItem</url-pattern>
+  </servlet-mapping>
+
 </web-app>
