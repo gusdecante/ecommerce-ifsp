@@ -1,12 +1,12 @@
 package model;
 
-import java.sql.Date;
-
 public class PessoaFisica extends Customer {
     private int idPessoaFisica, customerIdCustomer;
+    private String nameCustomer;
     private String CPF;
     private String RG;
-    private String nameCustomer;
+    private String dateBirth;
+    
 
     public int getIdPessoaFisica() {
         return this.idPessoaFisica;
@@ -48,14 +48,12 @@ public class PessoaFisica extends Customer {
         this.nameCustomer = nameCustomer;
     }
 
-    public Date getDateBirth() {
+    public String getDateBirth() {
         return this.dateBirth;
     }
 
-    public void setDateBirth(Date dateBirth) {
+    public void setDateBirth(String dateBirth) {
         this.dateBirth = dateBirth;
     }
-    private Date dateBirth;
-
 
 }
