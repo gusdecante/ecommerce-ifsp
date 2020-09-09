@@ -7,121 +7,175 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Address;
 import model.PessoaFisica;
-import model.Phone;
-import util.MysqlConection;
+
+import util.MysqlConnection;
 
 public class PessoaFisicaDao {
+
     private Connection con;
 
+    //Mysql connection created
     public PessoaFisicaDao() {
-        con = new MysqlConection().getConnection();
+        con = new MysqlConnection().getConnection();
+    }
+
+    //Insert register on the mysql table
+    public int registerPessoaFisica(PessoaFisica i) {
+        int ok = 0;
+        try {
+            String query = "INSERT INTO pessoa_Fisica (id_Pessoa_Fisica, name_Customer, CPF, RG, date_Birth, customer_id_Customer) VALUES (?, ?, ?, ?, ?, ?) ;";
+
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+
+            st.setInt(1, 0);
+            st.setString(2, i.getNameCustomer());
+            st.setString(3, i.getCPF());
+            st.setString(4, i.getRG());
+            st.setString(5, i.getDateBirth());
+            st.setInt(6, i.getCustomerIdCustomer());
+
+            ok = st.executeUpdate(); //Execute the insert
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return ok;
+    }
+
+    //Select register on the mysql table
+    public List<PessoaFisica> searchPessoaFisica() throws SQLException, Exception {
+
+        List<PessoaFisica> lista = new ArrayList<PessoaFisica>();
+        String query = "SELECT pessoa_Fisica.*, customer.*, user.* FROM pessoa_Fisica, customer, user WHERE pessoa_Fisica.customer_id_Customer = customer.id_Customer AND customer.user_id_User = user.id_User ;";
+        
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        ResultSet rs = st.executeQuery(); //Execute the select
+
+        while(rs.next()) {
+            PessoaFisica pf = new PessoaFisica();
+
+            //Pessoa_Fisica table
+            pf.setIdPessoaFisica(rs.getInt("id_Pessoa_Fisica"));
+            pf.setNameCustomer(rs.getString("name_Customer"));
+            pf.setCPF(rs.getString("CPF"));
+            pf.setRG(rs.getString("RG"));
+            pf.setDateBirth(rs.getString("date_Birth"));
+            pf.setCustomerIdCustomer(rs.getInt("pessoa_Fisica.customer_id_Customer"));
+            //customer table
+            pf.setIdCustomer(rs.getInt("id_Customer"));
+            pf.setUserIdUser(rs.getInt("user_id_User"));
+            //user table
+            pf.setIdUser(rs.getInt("id_User"));
+            pf.setEmail(rs.getString("email"));
+            pf.setPassword(rs.getString("password"));
+            pf.setUserType(rs.getInt("user_Type"));
+            pf.setToken(rs.getString("token"));
+
+            lista.add(pf);
+        }
+        
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
+    }
+
+    //Update register on the mysql table
+    public int updatePessoaFisica(PessoaFisica u) {
+        int ok = 0;
+        try {
+            String query = "UPDATE pessoa_Fisica SET name_Customer = ?, CPF = ?, RG = ?, date_Birth = ?, customer_id_Customer = ? WHERE id_Pessoa_Fisica = ? ;";
+
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+            //Select id informated 
+            List<PessoaFisica> l = new PessoaFisicaDao().searchPessoaFisica(u.getIdPessoaFisica());
+                
+            for (PessoaFisica lc : l) {
+                st.setInt(6, lc.getIdPessoaFisica());
+            }
+            st.setString(1, u.getNameCustomer());
+            st.setString(2, u.getCPF());
+            st.setString(3, u.getRG());
+            st.setString(4, u.getDateBirth());
+            st.setInt(5, u.getCustomerIdCustomer());
+
+            ok = st.executeUpdate(); //Execute the update
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ok;
+    }
+
+    //delete register on the mysql table
+    public int deletePessoaFisica(int d) {
+        int ok = 0;
+        try {
+            String query = "DELETE FROM pessoa_Fisica WHERE id_Pessoa_Fisica = ?;";
+
+            PreparedStatement st = con.prepareStatement(query); //Prepared the query
+            st.setInt(1, d);
+
+            ok = st.executeUpdate(); //Execute the Delete
+            st.close(); //Close the Statment
+            con.close(); //Close the connection
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return ok;
+    }
+
+    //Select specifical register on the mysql table
+    public List<PessoaFisica> searchPessoaFisica(int idPessoaFisica) throws SQLException, Exception {
+
+        List<PessoaFisica> lista = new ArrayList<PessoaFisica>();
+        String query = "SELECT pessoa_Fisica.*, customer.*, user.* FROM pessoa_Fisica, customer, user WHERE id_Pessoa_Fisica = ? AND pessoa_Fisica.customer_id_Customer = customer.id_Customer ;";
+
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        st.setInt(1, idPessoaFisica);
+
+        ResultSet rs = st.executeQuery(); //Execute the select
+
+        while(rs.next()) {
+            PessoaFisica pf = new PessoaFisica();
+
+            //Pessoa_Fisica table
+            pf.setIdPessoaFisica(rs.getInt("id_Pessoa_Fisica"));
+            pf.setNameCustomer(rs.getString("name_Customer"));
+            pf.setCPF(rs.getString("CPF"));
+            pf.setRG(rs.getString("RG"));
+            pf.setDateBirth(rs.getString("date_Birth"));
+            pf.setCustomerIdCustomer(rs.getInt("pessoa_Fisica.customer_id_Customer"));
+            //customer table
+            pf.setIdCustomer(rs.getInt("id_Customer"));
+            pf.setUserIdUser(rs.getInt("user_id_User"));
+            //user table
+            pf.setIdUser(rs.getInt("id_User"));
+            pf.setEmail(rs.getString("email"));
+            pf.setPassword(rs.getString("password"));
+            pf.setUserType(rs.getInt("user_Type"));
+            pf.setToken(rs.getString("token"));
+
+
+            lista.add(pf);
+           
+        }
+
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
     }
     
-    //Register normal customer, not an business
-    //PessoaFísica extends User, so the attributer of user will be userd here as well
-    public void registerPessoaFisica(PessoaFisica pf) throws SQLException {
-        
-        String query;
-        //First - Insert User
-        query = "INSERT INTO user (id_User, email, password, user_Tyoe, token) VALUES (?, ?, ?, ?, ?);";
-        PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1, pf.getIdUser());
-        st.setString(2, pf.getEmail());
-        st.setString(3, pf.getPassword());
-        st.setInt(4, pf.getTypeOfUser());
-        st.setString(5, pf.getToken());
-        st.execute();
-
-        //Second - Insert Customer 
-        query = "INSERT INTO customer(id_Customer, user_id_User) VALUES(?, ?)";
-        st = con.prepareStatement(query);
-        st.setInt(1, pf.getIdCustomer());
-        st.setInt(2, pf.getIdUser());
-        st.execute();
-
-        //Third - Insert Pessoa Física 
-        query = "INSERT INTO pessoa_Fisica(id_Pessoa_Fisica, name_Customer, CPF, RG, date_Birth, customer_id_Customer) VALUES (?, ?, ?, ?, ?, ?)";
-        st = con.prepareStatement(query);
-        st.setInt(1, pf.getIdPessoaFisica());
-        st.setString(2, pf.getNameCustomer());
-        st.setString(3, pf.getCPF());;
-        st.setString(4, pf.getRG());
-        st.setDate(5, pf.getDateOfBirth());
-        st.setInt(6, pf.getCustomer_id_Customer());
-        st.execute();
-        
-        // //Fourth - Insert Address
-        // Address adr = new Address();
-        // query = "INSERT INTO address(id_Address, street, number, district, city, state, zip_Code, customer_id_Customer) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-        // st = con.prepareStatement(query);
-        // st.setInt(1, adr.getIdAdress());
-        // st.setString(2, adr.getStreet());
-        // st.setString(3, adr.getNumber());
-        // st.setString(4, adr.getDistrict());
-        // st.setString(5, adr.getCity());
-        // st.setString(6, adr.getState());
-        // st.setString(7, adr.getZipCode());
-        // st.setInt(8, adr.getCustomerIdCustomer());
-        // st.execute();
-
-        // //Fifth - Insert the Phone
-        // Phone ph = new Phone();
-        // query = "INSERT INTO phone(id_Phone, phone, customer_id_Customer) VALUES(?, ?, ?)";
-        // st = con.prepareStatement(query);
-        // st.setInt(1, ph.getIdPhone());
-        // st.setString(2, ph.getPhone());
-        // st.setInt(3, ph.getCustomerIdCustomer());
-        // st.execute();
-
-        st.close();
-        con.close();
-         
-    }
-
-    //Listing PessoaFisica customer
-    //Whithout the Address and Phone yet
-    public List<PessoaFisica> search() throws SQLException, Exception {
-        List<PessoaFisica> list = new ArrayList();
-        String query = "SELECT * FROM pessoa_Fisica";
-        PreparedStatement st = con.prepareStatement(query);
-
-        ResultSet rs = st.executeQuery();
-        while(rs.next()) {
-            PessoaFisica pf = new PessoaFisica();
-
-            pf.setIdPessoaFisica(rs.getInt("id_Pessoa_Fisica"));
-            pf.setNameCustomer(rs.getString("name_Customer"));
-            pf.setCPF(rs.getString("CPF"));
-            pf.setRG(rs.getString("RG"));
-            pf.setDateOfBirth(rs.getDate("date_Birth"));
-            pf.setCustomer_id_Customer(rs.getInt("customer_id_Customer"));
-
-            list.add(pf);
-        }
-        return list;
-    }
-
-    //Search for a specific costumer
-    public List<PessoaFisica> search(String name) throws SQLException, Exception {
-        List<PessoaFisica> list = new ArrayList();
-        String query = "SELECT * FROM pessoa_Fisica WHERE name_Customer '" + name + "'";
-        PreparedStatement st = con.prepareStatement(query);
-
-        ResultSet rs = st.executeQuery();
-        while(rs.next()) {
-            PessoaFisica pf = new PessoaFisica();
-
-            pf.setIdPessoaFisica(rs.getInt("id_Pessoa_Fisica"));
-            pf.setNameCustomer(rs.getString("name_Customer"));
-            pf.setCPF(rs.getString("CPF"));
-            pf.setRG(rs.getString("RG"));
-            pf.setDateOfBirth(rs.getDate("date_Birth"));
-            pf.setCustomer_id_Customer(rs.getInt("customer_id_Customer"));
-            
-            list.add(pf);
-        }
-        return list;
-    }
 }
