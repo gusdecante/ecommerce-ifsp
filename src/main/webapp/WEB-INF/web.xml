@@ -81,4 +81,17 @@
     <url-pattern>/customer</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>controllerPessoaFisicaServlet</servlet-name>
+    <servlet-class>controller.PessoaFisicaController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerPessoaFisicaServlet</servlet-name>
+    <url-pattern>/pessoaFisica</url-pattern>
+  </servlet-mapping>
+
+
+
 </web-app>
