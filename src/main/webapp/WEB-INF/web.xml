@@ -114,4 +114,15 @@
     <url-pattern>/orderItem</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>controllerPessoaJuridicaServlet</servlet-name>
+    <servlet-class>controller.PessoaJuridicaController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerPessoaJuridicaServlet</servlet-name>
+    <url-pattern>/pessoaJuridica</url-pattern>
+  </servlet-mapping>
+
 </web-app>
