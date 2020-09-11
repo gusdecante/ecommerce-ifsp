@@ -46,7 +46,7 @@ public class OrderDao {
     public List<Order> searchOrder() throws SQLException, Exception {
 
         List<Order> lista = new ArrayList<Order>();
-        String query = "SELECT * FROM ecommercedb.order ;";
+        String query = "SELECT ecommercedb.order.*, payment_Form.* FROM ecommercedb.order, payment_Form WHERE ecommercedb.order.payment_form_id_Payment_Form = payment_Form.id_Payment_Form;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         ResultSet rs = st.executeQuery(); //Execute the select
@@ -57,6 +57,9 @@ public class OrderDao {
             od.setIdOrder(rs.getInt("id_Order"));
             od.setDate(rs.getString("date"));
             od.setPaymentFormIdPaymentForm(rs.getInt("payment_form_id_Payment_Form"));
+
+            od.setIdPaymentForm(rs.getInt("id_Payment_Form"));
+            od.setPaymentForm(rs.getString("payment_Form"));
 
             lista.add(od);
         }
@@ -120,7 +123,7 @@ public class OrderDao {
     public List<Order> searchOrder(int idOrder) throws SQLException, Exception {
 
         List<Order> lista = new ArrayList<Order>();
-        String query = "SELECT * FROM ecommercedb.order WHERE id_Order = ? ;";
+        String query = "SELECT ecommercedb.order.*, payment_Form.* FROM ecommercedb.order, payment_Form WHERE ecommercedb.order.payment_form_id_Payment_Form = payment_Form.id_Payment_Form AND id_Order = ? ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         st.setInt(1, idOrder);
@@ -133,6 +136,9 @@ public class OrderDao {
             od.setIdOrder(rs.getInt("id_Order"));
             od.setDate(rs.getString("date"));
             od.setPaymentFormIdPaymentForm(rs.getInt("payment_form_id_Payment_Form"));
+
+            od.setIdPaymentForm(rs.getInt("id_Payment_Form"));
+            od.setPaymentForm(rs.getString("payment_Form"));
 
             lista.add(od);
            
