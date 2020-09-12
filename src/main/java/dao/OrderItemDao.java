@@ -152,7 +152,7 @@ public class OrderItemDao {
     public List<OrderItem> searchOrderIdOrder(int OrderIdOrder) throws SQLException, Exception {
 
         List<OrderItem> lista = new ArrayList<OrderItem>();
-        String query = "SELECT * FROM order_Item WHERE order_id_Order = ? ;";
+        String query = "SELECT order_Item.*, product.*, category.* FROM order_Item, product, category WHERE order_Item.product_id_Product = product.id_Product AND product.category_id_Category = category.id_Category AND order_Item.order_id_Order = ? ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         st.setInt(1, OrderIdOrder);
@@ -166,6 +166,19 @@ public class OrderItemDao {
             oi.setAmount(rs.getInt("amount"));
             oi.setProductIdProduct(rs.getInt("product_id_Product"));
             oi.setOrderIdItem(rs.getInt("order_id_Order"));
+
+            oi.setIdProduct(rs.getInt("id_Product"));
+            oi.setCategoryIdCategory(rs.getInt("category_id_Category"));
+            oi.setColor(rs.getString("color"));
+            oi.setFinishingProcess(rs.getString("finishing_Process"));
+            oi.setCubaType(rs.getString("cuba_Type"));
+            oi.setDescription(rs.getString("description"));
+            oi.setStock(rs.getInt("stock"));
+            oi.setUnitaryValue(rs.getDouble("unitary_Value"));
+            oi.setImageLink(rs.getString("image_Link"));
+
+            oi.setIdCategory(rs.getInt("id_Category"));
+            oi.setCategory(rs.getString("category"));
 
             lista.add(oi);
            
