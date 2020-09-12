@@ -137,13 +137,13 @@ public class PessoaFisicaDao {
     }
 
     //Select specifical register on the mysql table
-    public List<PessoaFisica> searchPessoaFisica(int idPessoaFisica) throws SQLException, Exception {
+    public List<PessoaFisica> searchPessoaFisica(int idUser) throws SQLException, Exception {
 
         List<PessoaFisica> lista = new ArrayList<PessoaFisica>();
-        String query = "SELECT pessoa_Fisica.*, customer.*, user.* FROM pessoa_Fisica, customer, user WHERE id_Pessoa_Fisica = ? AND pessoa_Fisica.customer_id_Customer = customer.id_Customer ;";
+        String query = "SELECT pessoa_Fisica.*, customer.*, user.* FROM pessoa_Fisica, customer, user WHERE id_User = ? AND customer.user_id_User = user.id_User AND pessoa_Fisica.customer_id_Customer = customer.id_Customer ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
-        st.setInt(1, idPessoaFisica);
+        st.setInt(1, idUser);
 
         ResultSet rs = st.executeQuery(); //Execute the select
 
