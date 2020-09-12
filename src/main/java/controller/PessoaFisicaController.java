@@ -30,10 +30,10 @@ public class PessoaFisicaController extends HttpServlet{
         try {
             int parameter, n = 0;
             
-            if (req.getParameter("idPessoaFisica") == null || req.getParameter("idPessoaFisica").equals("")) {
+            if (req.getParameter("idUser") == null || req.getParameter("idUser").equals("")) {
                 parameter = 0;
             } else {
-                parameter = Integer.parseInt(req.getParameter("idPessoaFisica"));
+                parameter = Integer.parseInt(req.getParameter("idUser"));
             }         
 
             PessoaFisicaDao d = new PessoaFisicaDao();
