@@ -31,6 +31,14 @@ public class CustomerDao {
             st.setInt(2, i.getUserIdUser());
 
             ok = st.executeUpdate(); //Execute the insert
+
+            query = "SELECT LAST_INSERT_ID();";
+            st = con.prepareStatement(query);
+            ResultSet rs = st.executeQuery(); //Execute the select
+
+            while(rs.next()) {
+                ok = rs.getInt(1);    
+            }
             st.close(); //Close the Statment
             con.close(); //Close the connection
             
