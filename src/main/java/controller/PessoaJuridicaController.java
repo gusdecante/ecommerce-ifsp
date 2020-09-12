@@ -12,8 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import dao.AddressDao;
+import dao.CustomerDao;
 import dao.PessoaJuridicaDao;
+import dao.PhoneDao;
+import dao.UserDao;
+import model.Address;
+import model.Customer;
 import model.PessoaJuridica;
+import model.Phone;
+import model.User;
 
 public class PessoaJuridicaController extends HttpServlet{
 
@@ -95,23 +103,83 @@ public class PessoaJuridicaController extends HttpServlet{
             //
             //
             if (
+                req.getParameter("email") == null || req.getParameter("email").equals("") ||
+                req.getParameter("password") == null || req.getParameter("password").equals("") ||
+                req.getParameter("userType") == null || req.getParameter("userType").equals("") ||
+                req.getParameter("token") == null || req.getParameter("token").equals("") ||
+                //Pessoa Juridica
                 req.getParameter("CNPJ") == null || req.getParameter("CNPJ").equals("") ||
                 req.getParameter("razaoSocial") == null || req.getParameter("razaoSocial").equals("") ||
-                req.getParameter("customerIdCustomer") == null || req.getParameter("customerIdCustomer").equals("")
+                //Address
+                req.getParameter("street") == null || req.getParameter("street").equals("") ||
+                req.getParameter("number") == null || req.getParameter("number").equals("") ||
+                req.getParameter("district") == null || req.getParameter("district").equals("") ||
+                req.getParameter("city") == null || req.getParameter("city").equals("") ||
+                req.getParameter("state") == null || req.getParameter("state").equals("") ||
+                req.getParameter("zipCode") == null || req.getParameter("zipCode").equals("") ||
+                //Phone
+                req.getParameter("phone") == null || req.getParameter("phone").equals("")
+
             ) {
                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
             } else {
+                //Insert data in User
+                User inUser = new User();
+             
+                inUser.setEmail(req.getParameter("email"));
+                inUser.setPassword(req.getParameter("password"));
+                inUser.setUserType(Integer.parseInt(req.getParameter("userType")));
+                inUser.setToken(req.getParameter("token"));
+
+                UserDao d = new UserDao();
+                int ok = d.registerUser(inUser);
+
+                //Insert data in Customer
+                Customer inCustomer = new Customer();
+
+                inCustomer.setUserIdUser(ok);
+
+                CustomerDao cd = new CustomerDao();
+                int ok1 = cd.registerCustomer(inCustomer);
+
+                //Insert data in Pessoa_Juridica
                 PessoaJuridica inPessoaJuridica = new PessoaJuridica();
             
                 inPessoaJuridica.setCnpj(req.getParameter("CNPJ"));
                 inPessoaJuridica.setRazaoSocial(req.getParameter("razaoSocial"));
-                inPessoaJuridica.setCustomerIdCustomer(Integer.parseInt(req.getParameter("customerIdCustomer")));
+                inPessoaJuridica.setCustomerIdCustomer(ok1);
 
-                PessoaJuridicaDao d = new PessoaJuridicaDao();
+                PessoaJuridicaDao pjd = new PessoaJuridicaDao();
 
-                int ok = d.registerPessoaJuridica(inPessoaJuridica);
+                int ok2 = pjd.registerPessoaJuridica(inPessoaJuridica);
 
-                if(ok == 1)
+                //Insert data in Address
+                Address inAddress = new Address();
+                            
+                inAddress.setStreet(req.getParameter("street"));
+                inAddress.setNumber(req.getParameter("number"));
+                inAddress.setDistrict(req.getParameter("district"));
+                inAddress.setCity(req.getParameter("city"));
+                inAddress.setState(req.getParameter("state"));
+                inAddress.setZipCode(req.getParameter("zipCode"));
+                inAddress.setCustomerIdCustomer(ok1);
+
+                AddressDao ad = new AddressDao();
+
+                int ok3 = ad.registerAddress(inAddress);
+
+                //Insert data in Phone
+                Phone inPhone = new Phone();
+
+                inPhone.setPhone(req.getParameter("phone"));
+                inPhone.setCustomerIdCustomer(ok1);
+
+                PhoneDao phd = new PhoneDao();
+
+                int ok4 = phd.registerPhone(inPhone);
+
+
+                if(ok >= 1 && ok1 >=1 && ok2 >= 1 && ok3 >=1 && ok4 >= 1)
                     saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
                 else
                     saida.println("[ { \"result\" : \"Falha na inserção de dados\" } ]");
