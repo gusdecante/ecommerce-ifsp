@@ -47,7 +47,7 @@ public class PessoaJuridicaDao {
     public List<PessoaJuridica> searchPessoaJuridica() throws SQLException, Exception {
 
         List<PessoaJuridica> lista = new ArrayList<PessoaJuridica>();
-        String query = "SELECT * FROM pessoa_Juridica ;";
+        String query = "SELECT pessoa_Juridica.*, customer.*, user.* FROM pessoa_Juridica, customer, user WHERE pessoa_Juridica.customer_id_Customer = customer.id_Customer AND customer.user_id_User = user.id_User ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         ResultSet rs = st.executeQuery(); //Execute the select
@@ -59,6 +59,15 @@ public class PessoaJuridicaDao {
             pj.setCnpj(rs.getString("CNPJ"));
             pj.setRazaoSocial(rs.getString("razao_Social"));
             pj.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
+            //customer table
+            pj.setIdCustomer(rs.getInt("id_Customer"));
+            pj.setUserIdUser(rs.getInt("user_id_User"));
+            //user table
+            pj.setIdUser(rs.getInt("id_User"));
+            pj.setEmail(rs.getString("email"));
+            pj.setPassword(rs.getString("password"));
+            pj.setUserType(rs.getInt("user_Type"));
+            pj.setToken(rs.getString("token"));
 
             lista.add(pj);
         }
@@ -120,13 +129,13 @@ public class PessoaJuridicaDao {
     }
 
     //Select specifical register on the mysql table
-    public List<PessoaJuridica> searchPessoaJuridica(int idPessoaJuridica) throws SQLException, Exception {
+    public List<PessoaJuridica> searchPessoaJuridica(int idUser) throws SQLException, Exception {
 
         List<PessoaJuridica> lista = new ArrayList<PessoaJuridica>();
-        String query = "SELECT * FROM pessoa_Juridica WHERE id_Pessoa_Juridica = ? ;";
+        String query = "SELECT pessoa_Juridica.*, customer.*, user.* FROM pessoa_Juridica, customer, user WHERE id_User = ? AND customer.user_id_User = user.id_User AND pessoa_Juridica.customer_id_Customer = customer.id_Customer ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
-        st.setInt(1, idPessoaJuridica);
+        st.setInt(1, idUser);
 
         ResultSet rs = st.executeQuery(); //Execute the select
 
@@ -137,6 +146,15 @@ public class PessoaJuridicaDao {
             pj.setCnpj(rs.getString("CNPJ"));
             pj.setRazaoSocial(rs.getString("razao_Social"));
             pj.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
+            //customer table
+            pj.setIdCustomer(rs.getInt("id_Customer"));
+            pj.setUserIdUser(rs.getInt("user_id_User"));
+            //user table
+            pj.setIdUser(rs.getInt("id_User"));
+            pj.setEmail(rs.getString("email"));
+            pj.setPassword(rs.getString("password"));
+            pj.setUserType(rs.getInt("user_Type"));
+            pj.setToken(rs.getString("token"));
 
             lista.add(pj);
            
