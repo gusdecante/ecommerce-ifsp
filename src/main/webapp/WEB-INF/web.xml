@@ -5,6 +5,15 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+    <init-param>
+      <param-name>cors.allowed.origins</param-name>
+      <param-value> http://localhost:3000 </param-value>
+    </init-param>
+ </filter>
+
   <servlet>
     <servlet-name>controllerProductServlet</servlet-name>
     <servlet-class>controller.ProductController</servlet-class>
