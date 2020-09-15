@@ -22,6 +22,7 @@ public class AddressController extends HttpServlet{
         
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         req.setCharacterEncoding("UTF-8");
 
         PrintWriter saida = resp.getWriter();
@@ -85,6 +86,7 @@ public class AddressController extends HttpServlet{
         
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         req.setCharacterEncoding("UTF-8");
 
         PrintWriter saida = resp.getWriter();
@@ -140,6 +142,7 @@ public class AddressController extends HttpServlet{
        
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         req.setCharacterEncoding("UTF-8");
 
         PrintWriter saida = resp.getWriter();
@@ -179,6 +182,7 @@ public class AddressController extends HttpServlet{
         
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         req.setCharacterEncoding("UTF-8");
 
         PrintWriter saida = resp.getWriter();

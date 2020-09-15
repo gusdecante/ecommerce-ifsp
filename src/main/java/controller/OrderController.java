@@ -21,6 +21,7 @@ public class OrderController extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         resp.setContentType("application/json");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
@@ -84,6 +85,7 @@ public class OrderController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         resp.setContentType("application/json");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
@@ -130,6 +132,7 @@ public class OrderController extends HttpServlet{
        
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         req.setCharacterEncoding("UTF-8");
 
         PrintWriter saida = resp.getWriter();
@@ -169,6 +172,7 @@ public class OrderController extends HttpServlet{
         
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         req.setCharacterEncoding("UTF-8");
 
         PrintWriter saida = resp.getWriter();
