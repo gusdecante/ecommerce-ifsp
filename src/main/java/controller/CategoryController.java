@@ -17,6 +17,8 @@ import model.Category;
 
 public class CategoryController extends HttpServlet{
 
+    private static final long serialVersionUID = 2L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -122,6 +124,9 @@ public class CategoryController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
@@ -162,6 +167,9 @@ public class CategoryController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
     }
 
     @Override
@@ -208,6 +216,9 @@ public class CategoryController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 }

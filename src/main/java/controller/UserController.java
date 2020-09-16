@@ -17,6 +17,8 @@ import model.User;
 
 public class UserController extends HttpServlet{
 
+    private static final long serialVersionUID = 12L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -128,6 +130,9 @@ public class UserController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
@@ -168,6 +173,9 @@ public class UserController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
@@ -221,6 +229,9 @@ public class UserController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 

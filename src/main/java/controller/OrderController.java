@@ -17,6 +17,8 @@ import model.Order;
 
 public class OrderController extends HttpServlet{
 
+    private static final long serialVersionUID = 4L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -124,6 +126,9 @@ public class OrderController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
@@ -164,6 +169,9 @@ public class OrderController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
@@ -213,6 +221,9 @@ public class OrderController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 

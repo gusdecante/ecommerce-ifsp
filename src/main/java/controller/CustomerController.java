@@ -17,6 +17,8 @@ import model.Customer;
 
 public class CustomerController extends HttpServlet{
 
+    private static final long serialVersionUID = 3L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -122,6 +124,9 @@ public class CustomerController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
@@ -162,6 +167,9 @@ public class CustomerController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
@@ -209,6 +217,9 @@ public class CustomerController extends HttpServlet{
             e.printStackTrace();
             saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
         }
+                
+        saida.flush();
+        saida.close();
 
     }
 
