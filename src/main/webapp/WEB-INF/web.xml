@@ -134,4 +134,15 @@
     <url-pattern>/pessoaJuridica</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>controllerSaleServlet</servlet-name>
+    <servlet-class>controller.SaleController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerSaleServlet</servlet-name>
+    <url-pattern>/sale</url-pattern>
+  </servlet-mapping>
+
 </web-app>
