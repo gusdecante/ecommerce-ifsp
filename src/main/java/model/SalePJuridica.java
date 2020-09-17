@@ -1,12 +1,6 @@
 package model;
 
-public class Sale {
-    //Fields of Pessoa_Fisica
-    private int idPessoaFisica;
-    private String nameCustomer;
-    private String CPF;
-    private String RG;
-    private String dateBirth;
+public class SalePJuridica {
 
     //Fields of Pessoa_Juridica
     private int idPessoaJuridica;
@@ -42,47 +36,6 @@ public class Sale {
     
     //Fields of Sale
     private double total;
-
-
-    public int getIdPessoaFisica() {
-        return this.idPessoaFisica;
-    }
-
-    public void setIdPessoaFisica(int idPessoaFisica) {
-        this.idPessoaFisica = idPessoaFisica;
-    }
-
-    public String getNameCustomer() {
-        return this.nameCustomer;
-    }
-
-    public void setNameCustomer(String nameCustomer) {
-        this.nameCustomer = nameCustomer;
-    }
-
-    public String getCPF() {
-        return this.CPF;
-    }
-
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
-
-    public String getRG() {
-        return this.RG;
-    }
-
-    public void setRG(String RG) {
-        this.RG = RG;
-    }
-
-    public String getDateBirth() {
-        return this.dateBirth;
-    }
-
-    public void setDateBirth(String dateBirth) {
-        this.dateBirth = dateBirth;
-    }
 
     public int getIdPessoaJuridica() {
         return this.idPessoaJuridica;
