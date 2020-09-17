@@ -26,7 +26,7 @@ public class SalePFisicaDao {
     public int registerSalePFisica(SalePFisica sl) {
         int ok = 0;
         try {
-            MongoCollection<Document> docs = dtbase.getCollection("sale");
+            MongoCollection<Document> docs = dtbase.getCollection("salePFisica");
 
             Document rDoc = new Document();
             // Fields Pessoa_fisica
@@ -121,7 +121,7 @@ public class SalePFisicaDao {
     }
 
     public String searchSalePFisica() {
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePFisica");
         MongoCursor<Document> sSale = collection.find().iterator();
 
         List<String> lstSale = new ArrayList<String>();
@@ -135,7 +135,7 @@ public class SalePFisicaDao {
     }
 
     public String searchSalePFisica(int pFisica) {
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePFisica");
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("idPessoaFisica", pFisica);
         MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
@@ -152,7 +152,7 @@ public class SalePFisicaDao {
 
     public String searchSalePFisicaIdMongo(String strParameter) {
 
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePFisica");
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("_id", new ObjectId(strParameter));
         MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
@@ -169,7 +169,7 @@ public class SalePFisicaDao {
 
     public boolean DeleteSalePFisicaIdMongo(String strParameter) {
 
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePFisica");
         BasicDBObject deleteQuery = new BasicDBObject();
         deleteQuery.put("_id", new ObjectId(strParameter));
         DeleteResult ok = collection.deleteOne(deleteQuery);        

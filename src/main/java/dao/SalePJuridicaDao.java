@@ -26,7 +26,7 @@ public class SalePJuridicaDao {
     public int registerSalePJuridica(SalePJuridica sl) {
         int ok = 0;
         try {
-            MongoCollection<Document> docs = dtbase.getCollection("sale");
+            MongoCollection<Document> docs = dtbase.getCollection("salePJuridica");
 
             Document rDoc = new Document();
             
@@ -120,7 +120,7 @@ public class SalePJuridicaDao {
     }
 
     public String searchSalePJuridica() {
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePJuridica");
         MongoCursor<Document> sSale = collection.find().iterator();
 
         List<String> lstSale = new ArrayList<String>();
@@ -134,7 +134,7 @@ public class SalePJuridicaDao {
     }
 
     public String searchSalePJuridica(int pJuridica) {
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePJuridica");
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("idPessoaJuridica", pJuridica);
         MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
@@ -151,7 +151,7 @@ public class SalePJuridicaDao {
 
     public String searchSalePJuridicaIdMongo(String strParameter) {
 
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePJuridica");
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("_id", new ObjectId(strParameter));
         MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
@@ -168,7 +168,7 @@ public class SalePJuridicaDao {
 
     public boolean DeleteSalePJuridicaIdMongo(String strParameter) {
 
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCollection<Document> collection = dtbase.getCollection("salePJuridica");
         BasicDBObject deleteQuery = new BasicDBObject();
         deleteQuery.put("_id", new ObjectId(strParameter));
         DeleteResult ok = collection.deleteOne(deleteQuery);        
