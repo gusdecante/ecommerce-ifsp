@@ -13,17 +13,17 @@ import org.bson.Document;
 
 import org.bson.types.ObjectId;
 
-import model.Sale;
+import model.SalePFisica;
 import util.MongoConnection;
 
-public class SaleDao {
+public class SalePFisicaDao {
     private MongoDatabase dtbase;
 
-    public SaleDao() {
+    public SalePFisicaDao() {
         this.dtbase = new MongoConnection().getDatabase();
     }
 
-    public int registerSale(Sale sl) {
+    public int registerSalePFisica(SalePFisica sl) {
         int ok = 0;
         try {
             MongoCollection<Document> docs = dtbase.getCollection("sale");
@@ -35,11 +35,6 @@ public class SaleDao {
             rDoc.append("CPF", sl.getCPF());
             rDoc.append("RG", sl.getRG());
             rDoc.append("dateBith", sl.getDateBirth());
-
-            // Fields Pessoa_Juridica
-            rDoc.append("idPessoaJuridica", sl.getIdPessoaJuridica());
-            rDoc.append("cnpj", sl.getCnpj());
-            rDoc.append("razaoSocial", sl.getRazaoSocial());
 
             // Fields user
             rDoc.append("email", sl.getEmail());
@@ -111,7 +106,7 @@ public class SaleDao {
                 rDoc.append("category3", sl.getCategory());
             }
 
-            // Field Sale
+            // Field SalePFisica
             rDoc.append("total", sl.getTotal());
 
             docs.insertOne(rDoc);
@@ -125,7 +120,7 @@ public class SaleDao {
 
     }
 
-    public String searchSale() {
+    public String searchSalePFisica() {
         MongoCollection<Document> collection = dtbase.getCollection("sale");
         MongoCursor<Document> sSale = collection.find().iterator();
 
@@ -139,7 +134,7 @@ public class SaleDao {
         return lstSale.toString();
     }
 
-    public String searchSaleIdFisica(int pFisica) {
+    public String searchSalePFisica(int pFisica) {
         MongoCollection<Document> collection = dtbase.getCollection("sale");
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.put("idPessoaFisica", pFisica);
@@ -155,23 +150,7 @@ public class SaleDao {
         return lstSale.toString();
     }
 
-    public String searchSaleIdJuridica(int pJuridica) {
-        MongoCollection<Document> collection = dtbase.getCollection("sale");
-        BasicDBObject searchQuery = new BasicDBObject();
-        searchQuery.put("idPessoaJuridica", pJuridica);
-        MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
-
-        List<String> lstSale = new ArrayList<String>();
-
-        while (sSale.hasNext()) {
-            Document sDoc = sSale.next();
-            lstSale.add(sDoc.toJson());
-        }
-
-        return lstSale.toString();
-    }
-
-    public String searchSaleIdMongo(String strParameter) {
+    public String searchSalePFisicaIdMongo(String strParameter) {
 
         MongoCollection<Document> collection = dtbase.getCollection("sale");
         BasicDBObject searchQuery = new BasicDBObject();
@@ -188,7 +167,7 @@ public class SaleDao {
         return lstSale.toString();
     }
 
-    public boolean DeleteSaleIdMongo(String strParameter) {
+    public boolean DeleteSalePFisicaIdMongo(String strParameter) {
 
         MongoCollection<Document> collection = dtbase.getCollection("sale");
         BasicDBObject deleteQuery = new BasicDBObject();
