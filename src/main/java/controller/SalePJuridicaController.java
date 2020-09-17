@@ -13,12 +13,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-import dao.SaleDao;
-import model.Sale;
+import dao.SalePJuridicaDao;
+import model.SalePJuridica;
 
-public class SaleController extends HttpServlet {
+public class SalePJuridicaController extends HttpServlet {
 
-    private static final long serialVersionUID = 11L;
+    private static final long serialVersionUID = 12L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,14 +32,8 @@ public class SaleController extends HttpServlet {
 
         // CREATE JSON WITH QUERY FROM DB
         try {
-            int pFisica, pJuridica;
+            int pJuridica;
             String strParameter = "";
-
-            if (req.getParameter("idPessoaFisica") == null || req.getParameter("idPessoaFisica").equals("")) {
-                pFisica = 0;
-            } else {
-                pFisica = Integer.parseInt(req.getParameter("idPessoaFisica"));
-            }
 
             if (req.getParameter("idPessoaJuridica") == null || req.getParameter("idPessoaJuridica").equals("")) {
                 pJuridica = 0;
@@ -53,21 +47,18 @@ public class SaleController extends HttpServlet {
                 strParameter = req.getParameter("idSale");
             }
 
-            SaleDao sd = new SaleDao();
+            SalePJuridicaDao sd = new SalePJuridicaDao();
             String strJson = "[ { \"result\" : \"Não há resultado\" } ]";
 
             // conditions for select
-            if (pFisica == 0 && strParameter.equals("") && pJuridica == 0) {
+            if (strParameter.equals("") && pJuridica == 0) {
                 strJson = "[ { \"result\" : \"Não há resultado\" } ]";
 
-            } else if (pFisica != 0 && strParameter.equals("") && pJuridica == 0) {
-                strJson = sd.searchSaleIdFisica(pFisica);
+            } else if (pJuridica != 0 && strParameter.equals("")) {
+                strJson = sd.searchSalePJuridica(pJuridica);
 
-            } else if (pJuridica != 0 && pFisica == 0 && strParameter.equals("")) {
-                strJson = sd.searchSaleIdJuridica(pJuridica);
-
-            } else if (!strParameter.equals("") && pFisica == 0 && pJuridica == 0) {
-                strJson = sd.searchSaleIdMongo(strParameter);
+            } else if (!strParameter.equals("") && pJuridica == 0) {
+                strJson = sd.searchSalePJuridicaIdMongo(strParameter);
 
             } else {
                 strJson = "[ { \"result\" : \"Não há resultado, mais de um valor preenchido!\" } ]";
@@ -111,14 +102,7 @@ public class SaleController extends HttpServlet {
 
             JsonObject jsonObj = new Gson().fromJson(sb.toString(), JsonObject.class);
 
-            Sale s = new Sale();
-
-            // Fields of PessoaFisica
-            s.setIdPessoaFisica(jsonObj.get("idPessoaFisica").getAsInt());
-            s.setNameCustomer(jsonObj.get("nameCustomer").getAsString());
-            s.setCPF(jsonObj.get("CPF").getAsString());
-            s.setRG(jsonObj.get("RG").getAsString());
-            s.setDateBirth(jsonObj.get("dateBirth").getAsString());
+            SalePJuridica s = new SalePJuridica();
 
             // Fields Pessoa_Juridica
             s.setIdPessoaJuridica(jsonObj.get("idPessoaJuridica").getAsInt());
@@ -197,12 +181,12 @@ public class SaleController extends HttpServlet {
                 s.setCategory3(jsonObj.get("category3").getAsString());
             }
 
-            // Field Sale
+            // Field Sale Pessoa Juridica
             s.setTotal(jsonObj.get("total").getAsDouble());
 
-            SaleDao sd = new SaleDao();
+            SalePJuridicaDao sd = new SalePJuridicaDao();
 
-            int ok = sd.registerSale(s);
+            int ok = sd.registerSalePJuridica(s);
 
             if (ok == 1)
                 saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
@@ -245,9 +229,9 @@ public class SaleController extends HttpServlet {
                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
             } else {
 
-                SaleDao sd = new SaleDao();
+                SalePJuridicaDao sd = new SalePJuridicaDao();
 
-                boolean ok = sd.DeleteSaleIdMongo(req.getParameter("idSale"));
+                boolean ok = sd.DeleteSalePJuridicaIdMongo(req.getParameter("idSale"));
 
                 if(ok)
                     saida.println("[ { \"result\" : \"Dado excluido com sucesso\" } ]");
