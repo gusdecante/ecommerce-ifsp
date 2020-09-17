@@ -17,7 +17,7 @@ import model.User;
 
 public class UserController extends HttpServlet{
 
-    private static final long serialVersionUID = 12L;
+    private static final long serialVersionUID = 13L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
