@@ -41,10 +41,10 @@ public class SalePFisicaController extends HttpServlet {
                 pFisica = Integer.parseInt(req.getParameter("idPessoaFisica"));
             }
 
-            if (req.getParameter("idSale") == null || req.getParameter("idSale").equals("")) {
+            if (req.getParameter("idSalePFisica") == null || req.getParameter("idSalePFisica").equals("")) {
                 strParameter = "";
             } else {
-                strParameter = req.getParameter("idSale");
+                strParameter = req.getParameter("idSalePFisica");
             }
 
             SalePFisicaDao sd = new SalePFisicaDao();
@@ -228,13 +228,13 @@ public class SalePFisicaController extends HttpServlet {
             //
             //
 
-            if (req.getParameter("idSale") == null || req.getParameter("idSale").equals("")) {
+            if (req.getParameter("idSalePFisica") == null || req.getParameter("idSalePFisica").equals("")) {
                 saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
             } else {
 
                 SalePFisicaDao sd = new SalePFisicaDao();
 
-                boolean ok = sd.DeleteSalePFisicaIdMongo(req.getParameter("idSale"));
+                boolean ok = sd.DeleteSalePFisicaIdMongo(req.getParameter("idSalePFisica"));
 
                 if(ok)
                     saida.println("[ { \"result\" : \"Dado excluido com sucesso\" } ]");
