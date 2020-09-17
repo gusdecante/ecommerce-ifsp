@@ -136,13 +136,24 @@
 
 
   <servlet>
-    <servlet-name>controllerSaleServlet</servlet-name>
-    <servlet-class>controller.SaleController</servlet-class>
+    <servlet-name>controllerSalePFisicaServlet</servlet-name>
+    <servlet-class>controller.SalePFisicaController</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>controllerSaleServlet</servlet-name>
-    <url-pattern>/sale</url-pattern>
+    <servlet-name>controllerSalePFisicaServlet</servlet-name>
+    <url-pattern>/salePFisica</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>controllerSalePJuridicaServlet</servlet-name>
+    <servlet-class>controller.SalePJuridicaController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>controllerSalePJuridicaServlet</servlet-name>
+    <url-pattern>/salePJuridica</url-pattern>
   </servlet-mapping>
 
 </web-app>
