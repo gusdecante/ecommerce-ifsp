@@ -126,4 +126,68 @@ public class SaleDao {
         
     }
 
+    public String searchSale() {
+        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        MongoCursor<Document> sSale = collection.find().iterator();
+
+        List<String> lstSale = new ArrayList<String>();
+
+        while (sSale.hasNext()) {
+            Document sDoc = sSale.next();
+            lstSale.add(sDoc.toJson());
+        }
+
+        return lstSale.toString();
+    }
+
+    public String searchSaleIdFisica(int pFisica) {
+        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        BasicDBObject searchQuery = new BasicDBObject();
+        searchQuery.put("idPessoaFisica", pFisica);
+        MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
+
+        List<String> lstSale = new ArrayList<String>();
+
+        while (sSale.hasNext()) {
+            Document sDoc = sSale.next();
+            lstSale.add(sDoc.toJson());
+        }
+
+        return lstSale.toString();
+    }
+
+    public String searchSaleIdJuridica(int pJuridica) {
+        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        BasicDBObject searchQuery = new BasicDBObject();
+        searchQuery.put("idPessoaJuridica", pJuridica);
+        MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
+
+        List<String> lstSale = new ArrayList<String>();
+
+        while (sSale.hasNext()) {
+            Document sDoc = sSale.next();
+            lstSale.add(sDoc.toJson());
+        }
+
+        return lstSale.toString();
+    }
+
+    public String searchSaleIdMongo(String strParameter) {
+
+        MongoCollection<Document> collection = dtbase.getCollection("sale");
+        BasicDBObject searchQuery = new BasicDBObject();
+        searchQuery.put("_id", new ObjectId(strParameter));
+        MongoCursor<Document> sSale = collection.find(searchQuery).iterator();
+
+        List<String> lstSale = new ArrayList<String>();
+
+        while (sSale.hasNext()) {
+            Document sDoc = sSale.next();
+            lstSale.add(sDoc.toJson());
+        }
+        
+        return lstSale.toString();
+    }
+    
+
 }
