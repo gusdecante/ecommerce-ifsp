@@ -258,45 +258,48 @@ public class SaleController extends HttpServlet {
 
     }
 
-    // @Override
-    // protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        
-    //     resp.setContentType("application/json");
-    //     resp.setCharacterEncoding("UTF-8");
-    //     resp.setHeader("Access-Control-Allow-Origin", "*");
-    //     req.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        req.setCharacterEncoding("UTF-8");
 
-    //     PrintWriter saida = resp.getWriter();
+        PrintWriter saida = resp.getWriter();
 
-    //     //CREATE JSON WITH QUERY FROM DB
-    //     try {
-    //         // criar validação de usuário.
-    //         //
-    //         //
+        //CREATE JSON WITH QUERY FROM DB
+        try {
+            // criar validação de usuário.
+            //
+            //
             
-    //         if (req.getParameter("idSale") == null || req.getParameter("idSale").equals("")) {
-    //             saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
-    //         } else {
+            if (req.getParameter("idSale") == null || req.getParameter("idSale").equals("")) {
+                saida.println("[ { \"result\" : \"Existem valores nulos\" } ]");
+            } else {
                 
-    //             SaleDao d = new SaleDao();
+                SaleDao d = new SaleDao();
 
-    //             int ok = d.deleteSale(Integer.parseInt(req.getParameter("idSale")));
+                int ok = d.deleteSale(Integer.parseInt(req.getParameter("idSale")));
 
-    //             if(ok == 1)
-    //                 saida.println("[ { \"result\" : \"Dado excluido com sucesso\" } ]");
-    //             else
-    //                 saida.println("[ { \"result\" : \"Falha na exclusão\" } ]");
-    //         }
+                if(ok == 1)
+                    saida.println("[ { \"result\" : \"Dado excluido com sucesso\" } ]");
+                else
+                    saida.println("[ { \"result\" : \"Falha na exclusão\" } ]");
+            }
             
-    //     } catch (NumberFormatException e) {
-    //         e.printStackTrace();
-    //         saida.println("[ { \"result\" : \"Erro N " + e.getMessage() + "\" } ]");
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //         saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
-    //     }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro N " + e.getMessage() + "\" } ]");
+        } catch (Exception e) {
+            e.printStackTrace();
+            saida.println("[ { \"result\" : \"Erro E " + e.getMessage() + "\" } ]");
+        }
 
-    // }
+        saida.flush();
+        saida.close();
+
+    }
 
     // @Override
     // protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
