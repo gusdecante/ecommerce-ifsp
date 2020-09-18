@@ -23,7 +23,7 @@ public class OrderDao {
     public int registerOrder(Order i) {
         int ok = 0;
         try {
-            String query = "INSERT INTO ecommercedb.order (id_Order, date, payment_form_id_Payment_Form) VALUES (?, ?, ?) ;";
+            String query = "INSERT INTO ecommerceDB.order (id_Order, date, payment_form_id_Payment_Form) VALUES (?, ?, ?) ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
 
@@ -46,7 +46,7 @@ public class OrderDao {
     public List<Order> searchOrder() throws SQLException, Exception {
 
         List<Order> lista = new ArrayList<Order>();
-        String query = "SELECT ecommercedb.order.*, payment_Form.* FROM ecommercedb.order, payment_Form WHERE ecommercedb.order.payment_form_id_Payment_Form = payment_Form.id_Payment_Form;";
+        String query = "SELECT ecommerceDB.order.*, payment_Form.* FROM ecommerceDB.order, payment_Form WHERE ecommerceDB.order.payment_form_id_Payment_Form = payment_Form.id_Payment_Form;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         ResultSet rs = st.executeQuery(); //Execute the select
@@ -74,7 +74,7 @@ public class OrderDao {
     public int updateOrder(Order u) {
         int ok = 0;
         try {
-            String query = "UPDATE ecommercedb.order SET date = ?, payment_form_id_Payment_Form = ? WHERE id_Order = ? ;";
+            String query = "UPDATE ecommerceDB.order SET date = ?, payment_form_id_Payment_Form = ? WHERE id_Order = ? ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             //Select id informated 
@@ -103,7 +103,7 @@ public class OrderDao {
     public int deleteOrder(int d) {
         int ok = 0;
         try {
-            String query = "DELETE FROM ecommercedb.order WHERE id_Order = ?;";
+            String query = "DELETE FROM ecommerceDB.order WHERE id_Order = ?;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             st.setInt(1, d);
@@ -123,7 +123,7 @@ public class OrderDao {
     public List<Order> searchOrder(int idOrder) throws SQLException, Exception {
 
         List<Order> lista = new ArrayList<Order>();
-        String query = "SELECT ecommercedb.order.*, payment_Form.* FROM ecommercedb.order, payment_Form WHERE ecommercedb.order.payment_form_id_Payment_Form = payment_Form.id_Payment_Form AND id_Order = ? ;";
+        String query = "SELECT ecommerceDB.order.*, payment_Form.* FROM ecommerceDB.order, payment_Form WHERE ecommerceDB.order.payment_form_id_Payment_Form = payment_Form.id_Payment_Form AND id_Order = ? ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         st.setInt(1, idOrder);
