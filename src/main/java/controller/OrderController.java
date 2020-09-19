@@ -113,10 +113,14 @@ public class OrderController extends HttpServlet{
 
                 int ok = d.registerOrder(inOrder);
 
-                if(ok == 1)
-                    saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
-                else
+                if(ok >= 1) {
+                    if (ok > 1)
+                        saida.println("[ { \"result\" : \"Dados inseridos com sucesso\", \"last id\" : " + (ok-1) + " } ]");
+                    else 
+                        saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
+                } else
                     saida.println("[ { \"result\" : \"Falha na inserção de dados\" } ]");
+
             }                        
 
         } catch (NumberFormatException e) {
