@@ -32,6 +32,15 @@ public class OrderDao {
             st.setInt(3, i.getPaymentFormIdPaymentForm());
 
             ok = st.executeUpdate(); //Execute the insert
+
+            query = "SELECT LAST_INSERT_ID();";
+            st = con.prepareStatement(query);
+            ResultSet rs = st.executeQuery(); //Execute the select
+
+            while(rs.next()) {
+                ok = ok + rs.getInt(1);  
+            }
+
             st.close(); //Close the Statment
             con.close(); //Close the connection
             
@@ -149,5 +158,5 @@ public class OrderDao {
 
         return lista;
     }
-    
+
 }
