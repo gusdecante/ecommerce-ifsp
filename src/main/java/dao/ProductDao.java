@@ -177,5 +177,42 @@ public class ProductDao {
 
         return lista;
     }
-    
+
+
+    //Select specifical register on the mysql table
+    public List<Product> searchProductCategory(int idCategory) throws SQLException, Exception {
+
+        List<Product> lista = new ArrayList<Product>();
+        String query = "SELECT product.*, category.* FROM product, category WHERE category_id_Category = id_Category AND category_id_Category = ? ;";
+
+        PreparedStatement st = con.prepareStatement(query); //Prepared the query
+        st.setInt(1, idCategory);
+
+        ResultSet rs = st.executeQuery(); //Execute the select
+
+        while(rs.next()) {
+            Product p = new Product();
+
+            p.setIdProduct(rs.getInt("id_Product"));
+            p.setCategoryIdCategory(rs.getInt("category_id_Category"));
+            p.setColor(rs.getString("color"));
+            p.setFinishingProcess(rs.getString("finishing_Process"));
+            p.setCubaType(rs.getString("cuba_Type"));
+            p.setDescription(rs.getString("description"));
+            p.setStock(rs.getInt("stock"));
+            p.setUnitaryValue(rs.getDouble("unitary_Value"));
+            p.setImageLink(rs.getString("image_Link"));
+
+            p.setIdCategory(rs.getInt("id_Category"));
+            p.setCategory(rs.getString("category"));
+
+            lista.add(p);
+        }
+
+        st.close(); //Close the Statment
+        con.close(); //Close the connection
+
+        return lista;
+    }
+       
 }
