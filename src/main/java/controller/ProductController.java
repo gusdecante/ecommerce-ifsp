@@ -31,22 +31,31 @@ public class ProductController extends HttpServlet{
 
         //CREATE JSON WITH QUERY FROM DB
         try {
-            int parameter, n = 0;
+            int parameter, parameterCategory, n = 0;
 
             if (req.getParameter("idProduct") == null || req.getParameter("idProduct").equals("")) {
                 parameter = 0;
             } else {
                 parameter = Integer.parseInt(req.getParameter("idProduct"));
-            }         
+            }
+            
+            if (req.getParameter("idCategory") == null || req.getParameter("idCategory").equals("")) {
+                parameterCategory = 0;
+            } else {
+                parameterCategory = Integer.parseInt(req.getParameter("idCategory"));
+            }
 
             ProductDao d = new ProductDao();
             List<Product> lst;
 
-            if (parameter == 0) {
-                lst = d.searchProduct();
-            } else {
+            if (parameter != 0 && parameterCategory == 0) {
                 lst = d.searchProduct(parameter);
+            } else if (parameter == 0 && parameterCategory != 0) {
+                lst = d.searchProductCategory(parameterCategory);
+            } else {
+                lst = d.searchProduct();
             }
+
             n = lst.size();
 
             if (n == 0) {
