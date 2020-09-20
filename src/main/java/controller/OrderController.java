@@ -115,7 +115,7 @@ public class OrderController extends HttpServlet{
 
                 if(ok >= 1) {
                     if (ok > 1)
-                        saida.println("[ { \"result\" : \"Dados inseridos com sucesso\", \"last id\" :_" + (ok-1) + " } ]");
+                        saida.println("[ { \"result\" : \"Dados inseridos com sucesso\", \"last id\":_"+(ok-1)+"} ]");
                     else 
                         saida.println("[ { \"result\" : \"Dados inseridos com sucesso\" } ]");
                 } else
