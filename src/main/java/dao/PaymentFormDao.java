@@ -20,33 +20,31 @@ public class PaymentFormDao {
     }
 
     //Insert register on the mysql table
-    public boolean registerPaymentForm(PaymentForm i) {
-        boolean isSuccess = false;
+    public int registerPaymentForm(PaymentForm i) {
+        int ok = 0;
         try {
-            String query = "INSERT INTO payment_Form (id_PaymentForm, payment_Form) VALUES (?, ?);";
+            String query = "INSERT INTO payment_Form (id_Payment_Form, payment_Form) VALUES (?, ?);";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
 
             st.setInt(1, 0);
             st.setString(2, i.getPaymentForm());
 
-            st.executeUpdate(); //Execute the insert
+            ok = st.executeUpdate(); //Execute the insert
             st.close(); //Close the Statment
             con.close(); //Close the connection
-            isSuccess = true;
             
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
 
     //Select register on the mysql table
     public List<PaymentForm> searchPaymentForm() throws SQLException, Exception {
 
-        List<PaymentForm> lista = new ArrayList();
+        List<PaymentForm> lista = new ArrayList<PaymentForm>();
         String query = "SELECT * FROM payment_Form ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
@@ -55,7 +53,7 @@ public class PaymentFormDao {
         while(rs.next()) {
             PaymentForm pf = new PaymentForm();
 
-            pf.setIdPaymentForm(rs.getInt("id_PaymentForm"));
+            pf.setIdPaymentForm(rs.getInt("id_Payment_Form"));
             pf.setPaymentForm(rs.getString("payment_Form"));
 
             lista.add(pf);
@@ -68,75 +66,68 @@ public class PaymentFormDao {
     }
 
     //Update register on the mysql table
-    public boolean updatePaymentForm(PaymentForm u) {
-        boolean isSuccess = false;
+    public int updatePaymentForm(PaymentForm u) {
+        int ok = 0;
         try {
-            String query = "UPDATE payment_Form SET id_PaymentForm = ?, payment_Form = ? ;";
+            String query = "UPDATE payment_Form SET payment_Form = ? WHERE id_Payment_Form = ? ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             //Select id informated 
             List<PaymentForm> l = new PaymentFormDao().searchPaymentForm(u.getIdPaymentForm());
                 
             for (PaymentForm lc : l) {
-                st.setInt(1, lc.getIdPaymentForm());
+                st.setInt(2, lc.getIdPaymentForm());
             }
-            st.setString(2, u.getPaymentForm());
+            st.setString(1, u.getPaymentForm());
 
-            st.executeUpdate(); //Execute the update
+            ok = st.executeUpdate(); //Execute the update
             st.close(); //Close the Statment
             con.close(); //Close the connection
 
-            isSuccess = true;
-
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         } catch (Exception e) {
             e.printStackTrace();
-            isSuccess = false;
         }
 
-        return isSuccess;
+        return ok;
     }
 
     //delete register on the mysql table
-    public boolean deletePaymentForm(int d) {
-        boolean isSuccess = false;
+    public int deletePaymentForm(int d) {
+        int ok = 0;
         try {
-            String query = "DELETE FROM payment_Form WHERE id_PaymentForm = ?;";
+            String query = "DELETE FROM payment_Form WHERE id_Payment_Form = ? ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             st.setInt(1, d);
 
-            st.executeUpdate(); //Execute the Delete
+            ok = st.executeUpdate(); //Execute the Delete
             st.close(); //Close the Statment
             con.close(); //Close the connection
-
-            isSuccess = true;
             
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
 
     //Select specifical register on the mysql table
     public List<PaymentForm> searchPaymentForm(int idPaymentForm) throws SQLException, Exception {
 
-        List<PaymentForm> lista = new ArrayList();
-        String query = "SELECT * FROM payment_Form WHERE id_PaymentForm = ?;";
+        List<PaymentForm> lista = new ArrayList<PaymentForm>();
+        String query = "SELECT * FROM payment_Form WHERE id_Payment_Form = ?;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
-        st.setInt(2, idPaymentForm);
+        st.setInt(1, idPaymentForm);
 
         ResultSet rs = st.executeQuery(); //Execute the select
 
         while(rs.next()) {
             PaymentForm pf = new PaymentForm();
 
-            pf.setIdPaymentForm(rs.getInt("id_PaymentForm"));
+            pf.setIdPaymentForm(rs.getInt("id_Payment_Form"));
             pf.setPaymentForm(rs.getString("payment_Form"));
 
             lista.add(pf);

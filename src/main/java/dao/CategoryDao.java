@@ -20,8 +20,8 @@ public class CategoryDao {
     }
 
     //Insert register on the mysql table
-    public boolean registerCategory(Category i) {
-        boolean isSuccess = false;
+    public int registerCategory(Category i) {
+        int ok = 0;
         try {
             String query = "INSERT INTO category (id_Category, category) VALUES (?, ?);";
 
@@ -29,23 +29,21 @@ public class CategoryDao {
             st.setInt(1, 0);
             st.setString(2, i.getCategory());
 
-            st.executeUpdate(); //Execute the insert
+            ok = st.executeUpdate(); //Execute the insert
             st.close(); //Close the Statment
             con.close(); //Close the connection
-            isSuccess = true;
             
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
 
     //Select register on the mysql table
     public List<Category> searchCategory() throws SQLException, Exception {
 
-        List<Category> lista = new ArrayList();
+        List<Category> lista = new ArrayList<Category>();
         String query = "SELECT * FROM category ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
@@ -68,66 +66,59 @@ public class CategoryDao {
     }
 
     //Update register on the mysql table
-    public boolean updateCategory(Category u) {
-        boolean isSuccess = false;     
+    public int updateCategory(Category u) {
+        int ok = 0;     
         try {
-            String query = "UPDATE category SET id_Category = ?, category = ?;";
+            String query = "UPDATE category SET category = ? WHERE id_Category = ?;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             //Select id informated 
             List<Category> l = new CategoryDao().searchCategory(u.getIdCategory());
             
             for (Category lc : l) {
-                st.setInt(1, lc.getIdCategory());
+                st.setInt(2, lc.getIdCategory());
             }
 
-            st.setString(2, u.getCategory());
+            st.setString(1, u.getCategory());
 
-            st.executeUpdate(); //Execute the update
+            ok = st.executeUpdate(); //Execute the update
             st.close(); //Close the Statement
             con.close(); //Close the connection
 
-            isSuccess = true;
-
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         } catch (Exception e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
 
     //delete register on the mysql table
-    public boolean deleteCategory(int d) {
-        boolean isSuccess = false;
+    public int deleteCategory(int d) {
+        int ok = 0;
         try {
             String query = "DELETE FROM category WHERE id_Category = ?;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             st.setInt(1, d);
 
-            st.executeUpdate(); //Execute the delete
+            ok = st.executeUpdate(); //Execute the delete
             st.close(); //Close de statement
             con.close(); //Close the connection
-
-            isSuccess = true;
             
         } catch (SQLException e) {
             e.printStackTrace();
-            isSuccess = false;
         }
         
-        return isSuccess;
+        return ok;
     }
 
     //Select specifical register on the mysql table
     public List<Category> searchCategory(int idCategory) throws SQLException, Exception {
 
-        List<Category> lista = new ArrayList();
-        String query = "SELECT * FROM Category WHERE id_Category = ?;";
+        List<Category> lista = new ArrayList<Category>();
+        String query = "SELECT * FROM Category WHERE id_Category = ? ;";
 
         PreparedStatement st = con.prepareStatement(query);//Prepared the query
         st.setInt(1, idCategory);

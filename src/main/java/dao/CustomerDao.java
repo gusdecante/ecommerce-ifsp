@@ -6,32 +6,39 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Phone;
+import model.Customer;
 
 import util.MysqlConnection;
 
-public class PhoneDao {
+public class CustomerDao {
 
     private Connection con;
 
     //Mysql connection created
-    public PhoneDao() {
+    public CustomerDao() {
         con = new MysqlConnection().getConnection();
     }
 
     //Insert register on the mysql table
-    public int registerPhone(Phone i) {
+    public int registerCustomer(Customer i) {
         int ok = 0;
         try {
-            String query = "INSERT INTO phone (id_Phone, phone, customer_id_Customer) VALUES (?, ?, ?) ;";
+            String query = "INSERT INTO customer (id_Customer, user_id_User) VALUES (?, ?) ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
 
             st.setInt(1, 0);
-            st.setString(2, i.getPhone());
-            st.setInt(3, i.getCustomerIdCustomer());
+            st.setInt(2, i.getUserIdUser());
 
             ok = st.executeUpdate(); //Execute the insert
+
+            query = "SELECT LAST_INSERT_ID();";
+            st = con.prepareStatement(query);
+            ResultSet rs = st.executeQuery(); //Execute the select
+
+            while(rs.next()) {
+                ok = rs.getInt(1);    
+            }
             st.close(); //Close the Statment
             con.close(); //Close the connection
             
@@ -43,22 +50,21 @@ public class PhoneDao {
     }
 
     //Select register on the mysql table
-    public List<Phone> searchPhone() throws SQLException, Exception {
+    public List<Customer> searchCustomer() throws SQLException, Exception {
 
-        List<Phone> lista = new ArrayList<Phone>();
-        String query = "SELECT * FROM phone ;";
+        List<Customer> lista = new ArrayList<Customer>();
+        String query = "SELECT * FROM customer ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
         ResultSet rs = st.executeQuery(); //Execute the select
 
         while(rs.next()) {
-            Phone ph = new Phone();
+            Customer ct = new Customer();
 
-            ph.setIdPhone(rs.getInt("id_Phone"));
-            ph.setPhone(rs.getString("phone"));
-            ph.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
+            ct.setIdCustomer(rs.getInt("id_Customer"));
+            ct.setUserIdUser(rs.getInt("user_id_User"));
 
-            lista.add(ph);
+            lista.add(ct);
         }
         
         st.close(); //Close the Statment
@@ -68,20 +74,19 @@ public class PhoneDao {
     }
 
     //Update register on the mysql table
-    public int updatePhone(Phone u) {
+    public int updateCustomer(Customer u) {
         int ok = 0;
         try {
-            String query = "UPDATE phone SET phone = ?, customer_id_Customer = ? WHERE id_Phone = ? ;";
+            String query = "UPDATE customer SET user_id_User = ? WHERE id_Customer = ? ;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             //Select id informated 
-            List<Phone> l = new PhoneDao().searchPhone(u.getIdPhone());
+            List<Customer> l = new CustomerDao().searchCustomer(u.getIdCustomer());
                 
-            for (Phone lc : l) {
-                st.setInt(3, lc.getIdPhone());
+            for (Customer lc : l) {
+                st.setInt(2, lc.getIdCustomer());
             }
-            st.setString(1, u.getPhone());
-            st.setInt(2, u.getCustomerIdCustomer());
+            st.setInt(1, u.getUserIdUser());
 
             ok = st.executeUpdate(); //Execute the update
             st.close(); //Close the Statment
@@ -97,10 +102,10 @@ public class PhoneDao {
     }
 
     //delete register on the mysql table
-    public int deletePhone(int d) {
+    public int deleteCustomer(int d) {
         int ok = 0;
         try {
-            String query = "DELETE FROM phone WHERE id_Phone = ?;";
+            String query = "DELETE FROM customer WHERE id_Customer = ?;";
 
             PreparedStatement st = con.prepareStatement(query); //Prepared the query
             st.setInt(1, d);
@@ -117,52 +122,23 @@ public class PhoneDao {
     }
 
     //Select specifical register on the mysql table
-    public List<Phone> searchPhone(int idPhone) throws SQLException, Exception {
+    public List<Customer> searchCustomer(int idCustomer) throws SQLException, Exception {
 
-        List<Phone> lista = new ArrayList<Phone>();
-        String query = "SELECT * FROM phone WHERE id_Phone = ? ;";
+        List<Customer> lista = new ArrayList<Customer>();
+        String query = "SELECT * FROM customer WHERE id_Customer = ? ;";
 
         PreparedStatement st = con.prepareStatement(query); //Prepared the query
-        st.setInt(1, idPhone);
+        st.setInt(1, idCustomer);
 
         ResultSet rs = st.executeQuery(); //Execute the select
 
         while(rs.next()) {
-            Phone ph = new Phone();
+            Customer ct = new Customer();
 
-            ph.setIdPhone(rs.getInt("id_Phone"));
-            ph.setPhone(rs.getString("phone"));
-            ph.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
+            ct.setIdCustomer(rs.getInt("id_Customer"));
+            ct.setUserIdUser(rs.getInt("user_id_User"));
 
-            lista.add(ph);
-
-        }
-
-        st.close(); //Close the Statment
-        con.close(); //Close the connection
-
-        return lista;
-    }
-    
-    //Select specifical register on the mysql table
-    public List<Phone> searchPhoneCustomer(int customerIdCustomer) throws SQLException, Exception {
-
-        List<Phone> lista = new ArrayList<Phone>();
-        String query = "SELECT * FROM phone WHERE customer_id_Customer = ? ;";
-
-        PreparedStatement st = con.prepareStatement(query); //Prepared the query
-        st.setInt(1, customerIdCustomer);
-
-        ResultSet rs = st.executeQuery(); //Execute the select
-
-        while(rs.next()) {
-            Phone ph = new Phone();
-
-            ph.setIdPhone(rs.getInt("id_Phone"));
-            ph.setPhone(rs.getString("phone"));
-            ph.setCustomerIdCustomer(rs.getInt("customer_id_Customer"));
-
-            lista.add(ph);
+            lista.add(ct);
            
         }
 
@@ -171,5 +147,5 @@ public class PhoneDao {
 
         return lista;
     }
-
+    
 }

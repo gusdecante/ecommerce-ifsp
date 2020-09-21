@@ -9,8 +9,8 @@ public class MysqlConnection {
     private Connection connection = null;
     private final String HOST = "localhost";
     private final String DB = "ecommerceDB";
-    private final String LOGIN = "gerencia";
-    private final String PWD = "9eq3y%NhPG83o9fLZ%xL";
+    private final String LOGIN = "cliente";
+    private final String PWD = "mysql123";
     
 
     public Connection getConnection() {

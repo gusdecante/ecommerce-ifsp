@@ -1,19 +1,16 @@
 package model;
 
-import java.sql.Date;
-
 public class Order extends PaymentForm{
     
-    private int idColor,paymentFormIdPaymentForm;
-    private Date date;
+    private int idOrder, paymentFormIdPaymentForm;
+    private String date;
 
-
-    public int getIdColor() {
-        return this.idColor;
+    public int getIdOrder() {
+        return this.idOrder;
     }
 
-    public void setIdColor(int idColor) {
-        this.idColor = idColor;
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
     }
 
     public int getPaymentFormIdPaymentForm() {
@@ -24,11 +21,11 @@ public class Order extends PaymentForm{
         this.paymentFormIdPaymentForm = paymentFormIdPaymentForm;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
